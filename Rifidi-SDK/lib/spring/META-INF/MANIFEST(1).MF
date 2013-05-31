@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Export-Package: org.springframework.osgi.io;version="1.1.3.RELEASE";us
+ es:="org.osgi.framework,org.springframework.core.io",org.springframew
+ ork.osgi.io.internal;version="1.1.3.RELEASE";uses:="org.osgi.framewor
+ k,org.springframework.core.io",org.springframework.osgi.io.internal.r
+ esolver;version="1.1.3.RELEASE";uses:="org.osgi.framework"
+Implementation-Title: Spring Dynamic Modules Framework
+Spring-Version: 2.5.5
+Bundle-Classpath: .
+Implementation-Version: 1.1.3
+Built-By: bamboo
+Bundle-Name: Spring DM IO
+Created-By: Apache Maven Bundle Plugin
+Implementation-Vendor: Spring Dynamic Modules Framework
+Bundle-Vendor: SpringSource
+Implementation-Vendor-Id: org.springframework.osgi
+Build-Jdk: 1.5.0_17
+Bundle-Version: 1.1.3.RELEASE
+Spring-DM-Version: 1.1.3
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Description: Spring/OSGi IO abstract classes. Provides Resource
+ , ResourceLoader and ResourcePatternResolver for OSGi environments.
+Bundle-DocURL: http://www.springframework.org
+Import-Package: org.apache.commons.logging;version="[1.1.1, 2.0.0)",or
+ g.osgi.framework,org.osgi.service.packageadmin;resolution:=optional,o
+ rg.springframework.core.io;version="[2.5.4.A, 3.0.0)",org.springframe
+ work.core.io.support;version="[2.5.4.A, 3.0.0)",org.springframework.u
+ til;version="[2.5.4.A, 3.0.0)"
+Bundle-SymbolicName: org.springframework.osgi.io
+

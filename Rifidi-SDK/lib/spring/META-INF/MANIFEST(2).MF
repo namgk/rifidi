@@ -1,0 +1,69 @@
+Manifest-Version: 1.0
+Export-Package: org.springframework.osgi.io.internal;version="1.1.3.RE
+ LEASE";uses:="org.osgi.framework,org.springframework.core.io",org.spr
+ ingframework.osgi.io.internal.resolver;version="1.1.3.RELEASE";uses:=
+ "org.osgi.framework",org.springframework.osgi.test.internal.util.jar;
+ version="1.1.3.RELEASE";uses:="org.springframework.core.io,org.spring
+ framework.core.io.support,org.springframework.osgi.test.internal.util
+ .jar.storage",org.springframework.osgi.test.internal.util.jar.storage
+ ;version="1.1.3.RELEASE";uses:="org.springframework.core.io",org.spri
+ ngframework.osgi.web.context.support;version="1.1.3.RELEASE";uses:="j
+ avax.servlet,org.springframework.beans.factory.config,org.springframe
+ work.ui.context",org.springframework.osgi.web.deployer;version="1.1.3
+ .RELEASE";uses:="javax.servlet,org.osgi.framework",org.springframewor
+ k.osgi.web.deployer.internal.support;version="1.1.3.RELEASE";uses:="j
+ avax.servlet,org.osgi.framework",org.springframework.osgi.web.deploye
+ r.internal.util;version="1.1.3.RELEASE";uses:="org.osgi.framework,org
+ .springframework.core.io",org.springframework.osgi.web.deployer.jetty
+ ;version="1.1.3.RELEASE";uses:="org.mortbay.jetty.webapp,org.osgi.fra
+ mework,org.springframework.osgi.web.deployer",org.springframework.osg
+ i.web.deployer.support;version="1.1.3.RELEASE";uses:="org.osgi.framew
+ ork,org.springframework.osgi.web.deployer",org.springframework.osgi.w
+ eb.deployer.tomcat;version="1.1.3.RELEASE";uses:="org.apache.catalina
+ ,org.osgi.framework,org.springframework.osgi.web.deployer"
+Implementation-Title: Spring Dynamic Modules Framework
+Spring-Version: 2.5.5
+Bundle-Classpath: .
+Implementation-Version: 1.1.3
+Built-By: bamboo
+Bundle-Name: Spring DM Web
+Created-By: Apache Maven Bundle Plugin
+Implementation-Vendor: Spring Dynamic Modules Framework
+Bundle-Vendor: SpringSource
+Implementation-Vendor-Id: org.springframework.osgi
+Build-Jdk: 1.5.0_17
+Bundle-Version: 1.1.3.RELEASE
+Spring-DM-Version: 1.1.3
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Description: Spring/OSGi web support. Allows web applications t
+ o transparently run on OSGi platforms.
+Bundle-DocURL: http://www.springframework.org
+Import-Package: javax.servlet;version="[2.4.0, 3.0.0)",org.apache.cata
+ lina;version="[6.0.16, 7.0.0)";resolution:=optional,org.apache.catali
+ na.core;version="[6.0.16, 7.0.0)";resolution:=optional,org.apache.cat
+ alina.startup;version="[6.0.16, 7.0.0)";resolution:=optional,org.apac
+ he.commons.logging;version="[1.1.1, 2.0.0)",org.mortbay.jetty;version
+ ="[6.1.9, 7.0.0)";resolution:=optional,org.mortbay.jetty.handler;vers
+ ion="[6.1.9, 7.0.0)";resolution:=optional,org.mortbay.jetty.webapp;ve
+ rsion="[6.1.9, 7.0.0)";resolution:=optional,org.mortbay.resource;vers
+ ion="[6.1.9, 7.0.0)";resolution:=optional,org.mortbay.util;version="[
+ 6.1.9, 7.0.0)";resolution:=optional,org.osgi.framework,org.osgi.servi
+ ce.packageadmin;resolution:=optional,org.springframework.beans.factor
+ y;version="[2.5.4.A, 3.0.0)",org.springframework.beans.factory.config
+ ;version="[2.5.4.A, 3.0.0)",org.springframework.context;version="[2.5
+ .4.A, 3.0.0)",org.springframework.core.io;version="[2.5.4.A, 3.0.0)",
+ org.springframework.core.io.support;version="[2.5.4.A, 3.0.0)",org.sp
+ ringframework.osgi;version="[1.1.3.RELEASE, 1.1.3.RELEASE]",org.sprin
+ gframework.osgi.context;version="[1.1.3.RELEASE, 1.1.3.RELEASE]",org.
+ springframework.osgi.context.support;version="[1.1.3.RELEASE, 1.1.3.R
+ ELEASE]",org.springframework.osgi.io;version="[1.1.3.RELEASE, 1.1.3.R
+ ELEASE]",org.springframework.osgi.service.importer.support;version="[
+ 1.1.3.RELEASE, 1.1.3.RELEASE]",org.springframework.osgi.util;version=
+ "[1.1.3.RELEASE, 1.1.3.RELEASE]",org.springframework.ui.context;versi
+ on="[2.5.4.A, 3.0.0)",org.springframework.ui.context.support;version=
+ "[2.5.4.A, 3.0.0)",org.springframework.util;version="[2.5.4.A, 3.0.0)
+ ",org.springframework.web.context;version="[2.5.4.A, 3.0.0)",org.spri
+ ngframework.web.context.support;version="[2.5.4.A, 3.0.0)"
+Bundle-SymbolicName: org.springframework.osgi.web
+

@@ -1,0 +1,111 @@
+Manifest-Version: 1.0
+Export-Package: org.springframework.osgi;version="1.1.3.RELEASE",org.s
+ pringframework.osgi.bundle;version="1.1.3.RELEASE";uses:="org.osgi.fr
+ amework,org.springframework.core.io",org.springframework.osgi.compend
+ ium.config;version="1.1.3.RELEASE",org.springframework.osgi.compendiu
+ m.internal;version="1.1.3.RELEASE";uses:="org.osgi.framework,org.osgi
+ .service.cm,org.springframework.beans,org.springframework.beans.facto
+ ry",org.springframework.osgi.config;version="1.1.3.RELEASE";uses:="or
+ g.apache.commons.logging,org.springframework.beans,org.springframewor
+ k.beans.factory,org.springframework.beans.factory.support,org.springf
+ ramework.beans.factory.xml,org.springframework.osgi.service.importer.
+ support,org.w3c.dom",org.springframework.osgi.context;version="1.1.3.
+ RELEASE";uses:="org.osgi.framework,org.springframework.beans,org.spri
+ ngframework.osgi.context.event",org.springframework.osgi.context.even
+ t;version="1.1.3.RELEASE";uses:="org.osgi.framework,org.springframewo
+ rk.context,org.springframework.context.event",org.springframework.osg
+ i.context.internal.classloader;version="1.1.3.RELEASE";uses:="org.osg
+ i.framework",org.springframework.osgi.context.support;version="1.1.3.
+ RELEASE";uses:="org.osgi.framework,org.springframework.beans,org.spri
+ ngframework.beans.factory.config,org.springframework.beans.factory.su
+ pport,org.springframework.beans.factory.xml,org.springframework.conte
+ xt,org.springframework.context.event,org.springframework.core.io,org.
+ springframework.core.io.support,org.springframework.osgi.context,org.
+ springframework.osgi.context.event,org.xml.sax",org.springframework.o
+ sgi.context.support.internal;version="1.1.3.RELEASE";uses:="org.osgi.
+ framework,org.springframework.beans.factory",org.springframework.osgi
+ .service;version="1.1.3.RELEASE";uses:="org.osgi.framework",org.sprin
+ gframework.osgi.service.dependency.internal;version="1.1.3.RELEASE";u
+ ses:="org.apache.commons.logging,org.springframework.beans,org.spring
+ framework.beans.factory,org.springframework.core,org.springframework.
+ osgi.service.importer",org.springframework.osgi.service.exporter;vers
+ ion="1.1.3.RELEASE",org.springframework.osgi.service.exporter.support
+ ;version="1.1.3.RELEASE";uses:="org.osgi.framework,org.springframewor
+ k.beans,org.springframework.beans.factory,org.springframework.osgi.se
+ rvice.exporter",org.springframework.osgi.service.exporter.support.int
+ ernal.controller;version="1.1.3.RELEASE",org.springframework.osgi.ser
+ vice.importer;version="1.1.3.RELEASE";uses:="org.osgi.framework",org.
+ springframework.osgi.service.importer.event;version="1.1.3.RELEASE";u
+ ses:="org.springframework.osgi.service.importer",org.springframework.
+ osgi.service.importer.support;version="1.1.3.RELEASE";uses:="org.aopa
+ lliance.aop,org.aopalliance.intercept,org.osgi.framework,org.springfr
+ amework.beans.factory,org.springframework.context,org.springframework
+ .osgi.service.importer,org.springframework.osgi.service.importer.supp
+ ort.internal.aop,org.springframework.osgi.service.importer.support.in
+ ternal.collection,org.springframework.osgi.service.importer.support.i
+ nternal.dependency",org.springframework.osgi.service.importer.support
+ .internal.aop;version="1.1.3.RELEASE";uses:="org.aopalliance.intercep
+ t,org.osgi.framework,org.springframework.beans.factory,org.springfram
+ ework.context,org.springframework.osgi.service.importer,org.springfra
+ mework.osgi.service.importer.support.internal.support",org.springfram
+ ework.osgi.service.importer.support.internal.collection;version="1.1.
+ 3.RELEASE";uses:="org.apache.commons.logging,org.osgi.framework,org.s
+ pringframework.osgi.service.importer,org.springframework.osgi.service
+ .importer.support.internal.aop",org.springframework.osgi.service.impo
+ rter.support.internal.collection.comparator;version="1.1.3.RELEASE",o
+ rg.springframework.osgi.service.importer.support.internal.controller;
+ version="1.1.3.RELEASE";uses:="org.springframework.osgi.service.impor
+ ter.support.internal.dependency",org.springframework.osgi.service.imp
+ orter.support.internal.dependency;version="1.1.3.RELEASE";uses:="org.
+ springframework.osgi.service.importer",org.springframework.osgi.servi
+ ce.importer.support.internal.support;version="1.1.3.RELEASE";uses:="o
+ rg.osgi.framework",org.springframework.osgi.service.importer.support.
+ internal.util;version="1.1.3.RELEASE";uses:="org.osgi.framework,org.s
+ pringframework.osgi.service.importer",org.springframework.osgi.servic
+ e.util.internal.aop;version="1.1.3.RELEASE";uses:="org.aopalliance.ao
+ p,org.aopalliance.intercept,org.osgi.framework",org.springframework.o
+ sgi.util;version="1.1.3.RELEASE";uses:="org.apache.commons.logging,or
+ g.osgi.framework",org.springframework.osgi.util.internal;version="1.1
+ .3.RELEASE";uses:="org.osgi.framework,org.springframework.aop.framewo
+ rk,org.springframework.beans.factory.config"
+Implementation-Title: Spring Dynamic Modules Framework
+Spring-Version: 2.5.5
+Bundle-Classpath: .
+Implementation-Version: 1.1.3
+Built-By: bamboo
+Bundle-Name: Spring DM Core
+Created-By: Apache Maven Bundle Plugin
+Implementation-Vendor: Spring Dynamic Modules Framework
+Bundle-Vendor: SpringSource
+Implementation-Vendor-Id: org.springframework.osgi
+Build-Jdk: 1.5.0_17
+Bundle-Version: 1.1.3.RELEASE
+Spring-DM-Version: 1.1.3
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Description: Spring/OSGi core classes. Offers OSGi-based applic
+ ation context and importer/exporter functionality.
+Bundle-DocURL: http://www.springframework.org
+Import-Package: org.aopalliance.aop;version="[1.0.0, 2.0.0)",org.aopal
+ liance.intercept;version="[1.0.0, 2.0.0)",org.apache.commons.logging;
+ version="[1.1.1, 2.0.0)",org.osgi.framework,org.osgi.service.cm;resol
+ ution:=optional,org.osgi.service.startlevel;resolution:=optional,org.
+ springframework.aop.framework;version="[2.5.4.A, 3.0.0)",org.springfr
+ amework.aop.support;version="[2.5.4.A, 3.0.0)",org.springframework.be
+ ans;version="[2.5.4.A, 3.0.0)",org.springframework.beans.factory;vers
+ ion="[2.5.4.A, 3.0.0)",org.springframework.beans.factory.config;versi
+ on="[2.5.4.A, 3.0.0)",org.springframework.beans.factory.support;versi
+ on="[2.5.4.A, 3.0.0)",org.springframework.beans.factory.xml;version="
+ [2.5.4.A, 3.0.0)",org.springframework.beans.propertyeditors;version="
+ [2.5.4.A, 3.0.0)",org.springframework.context;version="[2.5.4.A, 3.0.
+ 0)",org.springframework.context.event;version="[2.5.4.A, 3.0.0)",org.
+ springframework.context.support;version="[2.5.4.A, 3.0.0)",org.spring
+ framework.core;version="[2.5.4.A, 3.0.0)",org.springframework.core.en
+ ums;version="[2.5.4.A, 3.0.0)",org.springframework.core.io;version="[
+ 2.5.4.A, 3.0.0)",org.springframework.core.io.support;version="[2.5.4.
+ A, 3.0.0)",org.springframework.osgi.io;version="[1.1.3.RELEASE, 1.1.3
+ .RELEASE]",org.springframework.util;version="[2.5.4.A, 3.0.0)",org.sp
+ ringframework.util.xml;version="[2.5.4.A, 3.0.0)",org.w3c.dom,org.xml
+ .sax
+Bundle-SymbolicName: org.springframework.osgi.core
+

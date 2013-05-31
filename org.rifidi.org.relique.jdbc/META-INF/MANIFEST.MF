@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CSV JDBC Driver
+Bundle-SymbolicName: org.rifidi.org.relique.jdbc
+Bundle-Version: 1.0.0
+Bundle-ClassPath: org.rifidi.org.relique.jdbc_1.0.0.jar
+Bundle-Vendor: Pramari, LLC
+Export-Package: org.relique.jdbc.csv;version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

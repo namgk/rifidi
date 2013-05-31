@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!--  Create Reader Configuration Factory -->
+	<bean id="alienConfigurationFactory"
+		class="org.rifidi.edge.readerplugin.alien.Alien9800ReaderFactory">
+		<property name="context" ref="bundleContext" />
+		<property name="notifierService" ref="JMSNotifierService" />
+		<property name="commandConfigurations" ref="alienCommands" />
+	</bean>
+
+	<bean id="alienAutoConfigurationFactory"
+		class="org.rifidi.edge.readerplugin.alien.autonomous.AlienAutonomousSensorFactory">
+		<property name="context" ref="bundleContext" />
+		<property name="notifierService" ref="JMSNotifierService" />
+		<property name="commandConfigurations" ref="alienautoCommands" />
+	</bean>
+	
+	<bean id = "alienGPIOService" class="org.rifidi.edge.readerplugin.alien.AlienGPIOService">
+		<property name = "readerDAO" ref="readerDAO"/>
+	</bean>
+		
+</beans>

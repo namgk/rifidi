@@ -1,0 +1,26 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/osgi 
+    http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+	<!-- Put reader configuration service in OSGi Registry -->
+	<osgi:service id="thingmagicConfigurationFactoryService" ref="thingmagicConfigurationFactory">
+		<osgi:interfaces>
+			<value>org.rifidi.edge.core.configuration.ServiceFactory</value>
+			<value>org.rifidi.edge.core.sensors.base.AbstractSensorFactory</value>
+		</osgi:interfaces>
+	</osgi:service>
+	
+	<!-- Create a set that listens for ThingMagic command configurations -->
+	<osgi:set id="thingmagicCommands" interface="org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration"
+		cardinality="0..N" filter="(reader=ThingMagic)">
+		<osgi:listener ref="thingmagicConfigurationFactory" bind-method="bindCommandConfiguration" unbind-method="unbindCommandConfiguration"/>
+	</osgi:set>
+	
+	<!-- Get a reference to the NotifierService -->
+	<osgi:reference id="JMSNotifierService"
+		interface="org.rifidi.edge.core.services.notification.NotifierService" />
+
+</beans>

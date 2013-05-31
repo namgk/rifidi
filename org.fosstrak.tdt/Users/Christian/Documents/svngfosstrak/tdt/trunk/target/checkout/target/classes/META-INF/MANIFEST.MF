@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1334111466976
+Build-Jdk: 1.6.0_29
+Built-By: Christian
+Bundle-Description: Tag Data Translation Engine - implements EPCglobal T
+ DT Spec
+Bundle-License: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: tdt
+Bundle-SymbolicName: org.fosstrak.tdt
+Bundle-Version: 1.0.0
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.epcglobalinc.tdt;uses:="javax.xml.bind.annotation,ja
+ vax.xml.datatype,javax.xml.bind,javax.xml.namespace";version="1.0.0",or
+ g.fosstrak.tdt;uses:="org.epcglobalinc.tdt,javax.xml.parsers,org.w3c.do
+ m,javax.xml.namespace,org.xml.sax,javax.xml.xpath,javax.xml.transform,j
+ avax.xml.transform.stream,javax.xml.bind";version="1.0.0",schemes;versi
+ on="1.0.0",auxiliary;version="1.0.0"
+Import-Package: javax.xml.bind,javax.xml.bind.annotation,javax.xml.datat
+ ype,javax.xml.namespace,javax.xml.parsers,javax.xml.transform,javax.xml
+ .transform.stream,javax.xml.xpath,org.w3c.dom,org.xml.sax
+Tool: Bnd-1.50.0

@@ -1,0 +1,62 @@
+Manifest-Version: 1.0
+Export-Package: org.apache.coyote;version="6.0.18";uses:="javax.manage
+ ment,org.apache.tomcat.util.buf,org.apache.tomcat.util.http,org.apach
+ e.tomcat.util.net",org.apache.coyote.ajp;version="6.0.18";uses:="java
+ x.management,org.apache.coyote,org.apache.tomcat.util.buf,org.apache.
+ tomcat.util.net",org.apache.coyote.http11;version="6.0.18";uses:="jav
+ ax.management,org.apache.coyote,org.apache.tomcat.util.buf,org.apache
+ .tomcat.util.net",org.apache.coyote.http11.filters;version="6.0.18";u
+ ses:="org.apache.coyote,org.apache.tomcat.util.buf",org.apache.coyote
+ .memory;version="6.0.18";uses:="org.apache.coyote,org.apache.tomcat.u
+ til.buf",org.apache.jk;version="6.0.18",org.apache.jk.apr;version="6.
+ 0.18";uses:="org.apache.jk.core",org.apache.jk.common;version="6.0.18
+ ";uses:="javax.management,org.apache.coyote,org.apache.jk.core,org.ap
+ ache.juli.logging,org.apache.tomcat.util.buf,org.apache.tomcat.util.t
+ hreads",org.apache.jk.config;version="6.0.18";uses:="javax.xml.parser
+ s,org.apache.catalina,org.apache.juli.logging,org.w3c.dom,org.xml.sax
+ ",org.apache.jk.core;version="6.0.18";uses:="javax.management,org.apa
+ che.coyote,org.apache.jk.common,org.apache.tomcat.util.buf",org.apach
+ e.jk.server;version="6.0.18";uses:="javax.management,org.apache.coyot
+ e,org.apache.jk.core",org.apache.tomcat.jni;version="6.0.18",org.apac
+ he.tomcat.util;version="6.0.18";uses:="javax.xml.parsers,javax.xml.tr
+ ansform,org.apache.juli.logging,org.w3c.dom,org.xml.sax",org.apache.t
+ omcat.util.buf;version="6.0.18",org.apache.tomcat.util.buf.res;versio
+ n="6.0.18",org.apache.tomcat.util.collections;version="6.0.18";uses:=
+ "org.apache.tomcat.util.buf",org.apache.tomcat.util.digester;version=
+ "6.0.18";uses:="javax.xml.parsers,org.apache.juli.logging,org.w3c.dom
+ ,org.xml.sax",org.apache.tomcat.util.http;version="6.0.18";uses:="org
+ .apache.tomcat.util.buf",org.apache.tomcat.util.http.fileupload;versi
+ on="6.0.18";uses:="javax.servlet.http",org.apache.tomcat.util.http.ma
+ pper;version="6.0.18";uses:="javax.naming,org.apache.tomcat.util.buf"
+ ,org.apache.tomcat.util.http.res;version="6.0.18",org.apache.tomcat.u
+ til.log;version="6.0.18",org.apache.tomcat.util.modeler;version="6.0.
+ 18";uses:="javax.management,javax.management.modelmbean",org.apache.t
+ omcat.util.modeler.modules;version="6.0.18";uses:="javax.management,o
+ rg.apache.tomcat.util.digester,org.apache.tomcat.util.modeler",org.ap
+ ache.tomcat.util.net;version="6.0.18";uses:="javax.net.ssl,org.apache
+ .tomcat.util,org.apache.tomcat.util.threads",org.apache.tomcat.util.n
+ et.jsse;version="6.0.18";uses:="javax.net.ssl,org.apache.tomcat.util.
+ net",org.apache.tomcat.util.net.jsse.res;version="6.0.18",org.apache.
+ tomcat.util.net.res;version="6.0.18",org.apache.tomcat.util.res;versi
+ on="6.0.18",org.apache.tomcat.util.threads;version="6.0.18";uses:="or
+ g.apache.juli.logging,org.apache.tomcat.util.res",org.apache.tomcat.u
+ til.threads.res;version="6.0.18"
+Ant-Version: Apache Ant 1.7.0
+Bundle-Vendor: SpringSource
+Fragment-Host: com.springsource.org.apache.catalina;bundle-version="[6
+ .0.18, 6.0.18]"
+Bundle-Classpath: .
+Bundle-Version: 6.0.18
+Bundle-Name: Apache Tomcat/Coyote
+Bundle-ManifestVersion: 2
+Created-By: 1.5.0_12-b04 (Sun Microsystems Inc.)
+Bundle-SymbolicName: com.springsource.org.apache.coyote
+Import-Package: javax.management,javax.management.loading,javax.manage
+ ment.modelmbean,javax.naming,javax.naming.directory,javax.net.ssl,jav
+ ax.security.cert,javax.servlet;version="[2.5.0, 3.0.0)",javax.servlet
+ .http;version="[2.5.0, 3.0.0)",javax.xml.parsers,javax.xml.transform,
+ javax.xml.transform.dom,javax.xml.transform.stream,org.apache.catalin
+ a;version="[6.0.18, 6.0.18]",org.apache.catalina.deploy;version="[6.0
+ .18, 6.0.18]",org.apache.juli.logging;version="[6.0.18, 6.0.18]",org.
+ w3c.dom,org.xml.sax,org.xml.sax.helpers
+

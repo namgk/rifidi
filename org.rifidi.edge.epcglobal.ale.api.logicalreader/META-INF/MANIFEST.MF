@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rifidi Edge ALE Logical Reader Implementation
+Bundle-SymbolicName: org.rifidi.edge.epcglobal.ale.api.logicalreader
+Bundle-Version: 1.0.1
+Import-Package: com.espertech.esper.client,com.espertech.esper.client.
+ metric,com.espertech.esper.client.soda,com.espertech.esper.client.tim
+ e,com.espertech.esper.event,org.apache.commons.logging;version="1.1.1
+ ",org.osgi.framework;version="1.3.0",org.springframework.beans.factor
+ y.config;version="2.5.5",org.springframework.remoting.jaxws;version="
+ 2.5.5"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.rifidi.edge.epcglobal.ale.api.lr,org.rifidi.edge.e
+ pcglobal.ale.api.lr.data,org.rifidi.edge.epcglobal.ale.api.lr.ws
+Require-Bundle: org.rifidi.edge.core.services;bundle-version="1.0.0",o
+ rg.rifidi.edge.core;bundle-version="5.3.1"
+

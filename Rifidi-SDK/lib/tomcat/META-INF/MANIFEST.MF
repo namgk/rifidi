@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Export-Package: org.apache.el;version="6.0.18";uses:="javax.el,org.apa
+ che.el.parser",org.apache.el.lang;version="6.0.18";uses:="javax.el,or
+ g.apache.el.parser",org.apache.el.parser;version="6.0.18";uses:="java
+ x.el,org.apache.el.lang",org.apache.el.util;version="6.0.18";uses:="j
+ avax.el"
+Ant-Version: Apache Ant 1.7.0
+Bundle-Vendor: SpringSource
+Bundle-Classpath: .
+Bundle-Version: 6.0.18
+Bundle-Name: Apache EL
+Bundle-ManifestVersion: 2
+Created-By: 1.5.0_12-b04 (Sun Microsystems Inc.)
+Bundle-SymbolicName: com.springsource.org.apache.el
+Import-Package: javax.el;version="[1.0.0, 2.0.0)"
+

@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Coap Plug-in
+Bundle-SymbolicName: org.ws4d.coap
+Bundle-Version: 1.0.0
+Export-Package: lib,
+ org.ws4d.coap,
+ org.ws4d.coap.connection,
+ org.ws4d.coap.interfaces,
+ org.ws4d.coap.messages,
+ org.ws4d.coap.rest,
+ org.ws4d.coap.tools
+Import-Package: org.apache.log4j; version="1.2.15"

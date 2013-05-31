@@ -1,0 +1,53 @@
+Manifest-Version: 1.0
+Export-Package: org.apache;version="6.0.18";uses:="javax.naming",org.a
+ pache.jasper;version="6.0.18";uses:="javax.servlet,javax.servlet.jsp.
+ tagext,org.apache.jasper.compiler,org.apache.jasper.servlet,org.apach
+ e.tools.ant",org.apache.jasper.compiler;version="6.0.18";uses:="javax
+ .el,javax.servlet,javax.servlet.jsp.tagext,javax.xml.parsers,org.apac
+ he.jasper,org.apache.jasper.compiler.tagplugin,org.apache.jasper.serv
+ let,org.apache.jasper.xmlparser,org.apache.tools.ant,org.eclipse.jdt.
+ internal.compiler,org.eclipse.jdt.internal.compiler.env,org.xml.sax",
+ org.apache.jasper.compiler.tagplugin;version="6.0.18",org.apache.jasp
+ er.el;version="6.0.18";uses:="javax.el,javax.servlet.jsp.el",org.apac
+ he.jasper.resources;version="6.0.18",org.apache.jasper.runtime;versio
+ n="6.0.18";uses:="javax.el,javax.naming,javax.servlet,javax.servlet.h
+ ttp,javax.servlet.jsp,javax.servlet.jsp.el,javax.servlet.jsp.tagext,o
+ rg.apache,org.apache.jasper,org.apache.jasper.el",org.apache.jasper.s
+ ecurity;version="6.0.18",org.apache.jasper.servlet;version="6.0.18";u
+ ses:="javax.servlet,javax.servlet.http,javax.servlet.jsp.tagext,org.a
+ pache.jasper,org.apache.jasper.compiler",org.apache.jasper.tagplugins
+ .jstl;version="6.0.18";uses:="javax.servlet,javax.servlet.http,javax.
+ servlet.jsp",org.apache.jasper.tagplugins.jstl.core;version="6.0.18";
+ uses:="org.apache.jasper.compiler.tagplugin",org.apache.jasper.util;v
+ ersion="6.0.18",org.apache.jasper.xmlparser;version="6.0.18";uses:="o
+ rg.apache.jasper,org.apache.jasper.compiler,org.w3c.dom,org.xml.sax"
+Ant-Version: Apache Ant 1.7.0
+Bundle-Vendor: SpringSource
+Fragment-Host: com.springsource.org.apache.catalina;version="[6.0.18, 
+ 6.0.18]"
+Bundle-Classpath: .
+Bundle-Version: 6.0.18
+Bundle-Name: Apache Jasper JSP support
+Bundle-ManifestVersion: 2
+Created-By: 1.5.0_12-b04 (Sun Microsystems Inc.)
+Bundle-SymbolicName: com.springsource.org.apache.jasper
+Import-Package: javax.el;version="[1.0.0, 2.0.0)",javax.naming,javax.s
+ ervlet;version="[2.4.0, 3.0.0)",javax.servlet.http;version="[2.4.0, 3
+ .0.0)",javax.servlet.jsp;version="[2.0.0, 3.0.0)",javax.servlet.jsp.e
+ l;version="[2.0.0, 3.0.0)",javax.servlet.jsp.resources;version="[2.0.
+ 0, 3.0.0)",javax.servlet.jsp.tagext;version="[2.0.0, 3.0.0)",javax.se
+ rvlet.resources;version="[2.5.0, 3.0.0)",javax.xml.parsers,org.apache
+ .el;version="[6.0.18, 6.0.18]",org.apache.el.lang;version="[6.0.18, 6
+ .0.18]",org.apache.juli.logging;version="[6.0.18, 6.0.18]",org.apache
+ .tools.ant;version="[1.7.0, 2.0.0)";resolution:=optional,org.apache.t
+ ools.ant.taskdefs;version="[1.7.0, 2.0.0)";resolution:=optional,org.a
+ pache.tools.ant.types;version="[1.7.0, 2.0.0)";resolution:=optional,o
+ rg.apache.tools.ant.util;version="[1.7.0, 2.0.0)";resolution:=optiona
+ l,org.eclipse.jdt.core.compiler;provider="jasper";version="[3.3.0, 3.
+ 3.0]",org.eclipse.jdt.internal.compiler;provider="jasper";version="[3
+ .3.0, 3.3.0]",org.eclipse.jdt.internal.compiler.classfmt;provider="ja
+ sper";version="[3.3.0, 3.3.0]",org.eclipse.jdt.internal.compiler.env;
+ provider="jasper";version="[3.3.0, 3.3.0]",org.eclipse.jdt.internal.c
+ ompiler.problem;provider="jasper";version="[3.3.0, 3.3.0]",org.w3c.do
+ m,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers
+

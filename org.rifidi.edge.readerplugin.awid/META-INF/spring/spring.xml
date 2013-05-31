@@ -1,0 +1,26 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!--  Create Reader Configuration Factory -->
+	<bean id="awid2010SensorFactory"
+		class="org.rifidi.edge.readerplugin.awid.awid2010.Awid2010SensorFactory">
+		<property name="context" ref="bundleContext" />
+		<property name="notifierService" ref="JMSNotifierService" />
+		<property name="commandConfigurations" ref="awid2010Commands" />
+	</bean>
+	
+	<!--  Create Reader Configuration Factory -->
+	<bean id="awid3014SensorFactory"
+		class="org.rifidi.edge.readerplugin.awid.awid2010.Awid3014SensorFactory">
+		<property name="context" ref="bundleContext" />
+		<property name="notifierService" ref="JMSNotifierService" />
+		<property name="commandConfigurations" ref="awid3014Commands" />
+	</bean>
+	
+	<bean id = "awidGPIOService" class="org.rifidi.edge.readerplugin.awid.awid2010.gpio.AwidGPIOService">
+		<property name = "readerDAO" ref="readerDAO"/>
+	</bean>
+	
+</beans>

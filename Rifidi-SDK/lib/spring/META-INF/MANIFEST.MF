@@ -1,0 +1,74 @@
+Manifest-Version: 1.0
+Export-Package: org.springframework.osgi.extender;version="1.1.3.RELEA
+ SE";uses:="org.osgi.framework,org.springframework.beans,org.springfra
+ mework.beans.factory.config,org.springframework.osgi.context",org.spr
+ ingframework.osgi.extender.event;version="1.1.3.RELEASE";uses:="org.o
+ sgi.framework,org.springframework.context,org.springframework.osgi.se
+ rvice.importer.event",org.springframework.osgi.extender.internal.acti
+ vator;version="1.1.3.RELEASE";uses:="org.apache.commons.logging,org.o
+ sgi.framework,org.springframework.osgi.context,org.springframework.os
+ gi.context.event",org.springframework.osgi.extender.internal.dependen
+ cies.shutdown;version="1.1.3.RELEASE";uses:="org.osgi.framework",org.
+ springframework.osgi.extender.internal.dependencies.startup;version="
+ 1.1.3.RELEASE";uses:="org.apache.commons.logging,org.osgi.framework,o
+ rg.springframework.beans,org.springframework.beans.factory.config,org
+ .springframework.core.task,org.springframework.osgi.context,org.sprin
+ gframework.osgi.context.event,org.springframework.osgi.extender.inter
+ nal.util.concurrent,org.springframework.osgi.service.importer",org.sp
+ ringframework.osgi.extender.internal.support;version="1.1.3.RELEASE";
+ uses:="org.osgi.framework,org.springframework.beans,org.springframewo
+ rk.beans.factory.config,org.springframework.beans.factory.xml,org.spr
+ ingframework.core.task,org.springframework.osgi,org.springframework.o
+ sgi.context.event,org.springframework.osgi.extender,org.xml.sax",org.
+ springframework.osgi.extender.internal.util.concurrent;version="1.1.3
+ .RELEASE";uses:="org.springframework.core.task",org.springframework.o
+ sgi.extender.support;version="1.1.3.RELEASE";uses:="org.osgi.framewor
+ k,org.springframework.osgi.context,org.springframework.osgi.extender,
+ org.springframework.osgi.extender.support.scanning",org.springframewo
+ rk.osgi.extender.support.internal;version="1.1.3.RELEASE";uses:="org.
+ osgi.framework",org.springframework.osgi.extender.support.scanning;ve
+ rsion="1.1.3.RELEASE";uses:="org.osgi.framework"
+Implementation-Title: Spring Dynamic Modules Framework
+Spring-Version: 2.5.5
+Implementation-Version: 1.1.3
+Bundle-Classpath: .
+Built-By: bamboo
+Bundle-Name: Spring DM Extender
+Created-By: Apache Maven Bundle Plugin
+Implementation-Vendor: Spring Dynamic Modules Framework
+Bundle-Vendor: SpringSource
+Implementation-Vendor-Id: org.springframework.osgi
+Build-Jdk: 1.5.0_17
+Bundle-Version: 1.1.3.RELEASE
+Spring-DM-Version: 1.1.3
+Bundle-Activator: org.springframework.osgi.extender.internal.activator
+ .ContextLoaderListener
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Bundle-Description: Spring/OSGi extender. Listens for and bootstraps S
+ pring-powered OSGi bundles.
+Bundle-DocURL: http://www.springframework.org
+Import-Package: org.apache.commons.logging;version="[1.1.1, 2.0.0)",or
+ g.osgi.framework,org.osgi.service.packageadmin,org.springframework.be
+ ans;version="[2.5.4.A, 3.0.0)",org.springframework.beans.factory;vers
+ ion="[2.5.4.A, 3.0.0)",org.springframework.beans.factory.config;versi
+ on="[2.5.4.A, 3.0.0)",org.springframework.beans.factory.xml;version="
+ [2.5.4.A, 3.0.0)",org.springframework.context;version="[2.5.4.A, 3.0.
+ 0)",org.springframework.context.event;version="[2.5.4.A, 3.0.0)",org.
+ springframework.core;version="[2.5.4.A, 3.0.0)",org.springframework.c
+ ore.enums;version="[2.5.4.A, 3.0.0)",org.springframework.core.task;ve
+ rsion="[2.5.4.A, 3.0.0)",org.springframework.osgi;version="[1.1.3.REL
+ EASE, 1.1.3.RELEASE]",org.springframework.osgi.context;version="[1.1.
+ 3.RELEASE, 1.1.3.RELEASE]",org.springframework.osgi.context.event;ver
+ sion="[1.1.3.RELEASE, 1.1.3.RELEASE]",org.springframework.osgi.contex
+ t.support;version="[1.1.3.RELEASE, 1.1.3.RELEASE]",org.springframewor
+ k.osgi.io.internal.resolver;version="[1.1.3.RELEASE, 1.1.3.RELEASE]",
+ org.springframework.osgi.service.importer;version="[1.1.3.RELEASE, 1.
+ 1.3.RELEASE]",org.springframework.osgi.service.importer.event;version
+ ="[1.1.3.RELEASE, 1.1.3.RELEASE]",org.springframework.osgi.service.im
+ porter.support;version="[1.1.3.RELEASE, 1.1.3.RELEASE]",org.springfra
+ mework.osgi.util;version="[1.1.3.RELEASE, 1.1.3.RELEASE]",org.springf
+ ramework.scheduling.timer;version="[2.5.4.A, 3.0.0)",org.springframew
+ ork.util;version="[2.5.4.A, 3.0.0)",org.xml.sax
+Bundle-SymbolicName: org.springframework.osgi.extender
+

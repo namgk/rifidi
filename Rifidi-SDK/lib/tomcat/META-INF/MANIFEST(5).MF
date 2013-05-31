@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Built-By: bamboo
+Apache-Tomcat-Version: 5.5.23
+Bundle-Activator: org.springframework.osgi.web.tomcat.internal.Activat
+ or
+Created-By: Apache Maven Bundle Plugin
+Import-Package: javax.management;resolution:=optional,org.apache.catal
+ ina,org.apache.catalina.connector,org.apache.catalina.core,org.apache
+ .catalina.startup,org.apache.catalina.util,org.apache.commons.logging
+ ;resolution:=optional,org.apache.naming.resources,org.osgi.framework;
+ version="1.3",org.osgi.service.url;version="1.0"
+Implementation-Vendor-Id: org.springframework.osgi
+Bnd-LastModified: 1214925102069
+Bundle-Version: 1.0.0.SNAPSHOT
+Bundle-Name: catalina.start.osgi
+Bundle-Description: Tomcat Catalina OSGi Activator
+Build-Jdk: 1.5.0_13
+Private-Package: conf,org.springframework.osgi.web.tomcat.internal
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.springframework.osgi.catalina.start.osgi
+Implementation-Title: Spring Dynamic Modules Framework
+Tool: Bnd-0.0.227
+Implementation-Version: 1.0-SNAPSHOT
+Embed-Dependency: start;scope=provided;inline=true
+Implementation-Vendor: Spring Dynamic Modules Framework
+

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="Rifidi Edge Server Target" sequenceNumber="18">
+<locations>
+<location path="${workspace_loc}/Rifidi-SDK/lib/libraries" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/spring" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/aspectj" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/javax" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/tomcat" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/rifidi" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/plugins" type="Profile"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/esper" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/commons" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/logging" type="Directory"/>
+<location path="${workspace_loc}/Rifidi-SDK/lib/eclipseaspects" type="Directory"/>
+</locations>
+<includeBundles>
+<plugin id="org.rifidi.edge.readerplugin.alien.commands"/>
+<plugin id="org.aspectj.weaver"/>
+<plugin id="com.springsource.slf4j.api"/>
+<plugin id="org.apache.geronimo.specs.geronimo-j2ee-management_1.1_spec"/>
+<plugin id="org.rifidi.edge.init.source"/>
+<plugin id="org.springframework.bundle.osgi.web.extender"/>
+<plugin id="org.apache.commons.collections"/>
+<plugin id="com.springsource.slf4j.jcl"/>
+<plugin id="org.springframework.osgi.io"/>
+<plugin id="org.rifidi.edge.core.services.notification.source"/>
+<plugin id="org.rifidi.gnu.io"/>
+<plugin id="org.rifidi.org.apache.mina-core"/>
+<plugin id="org.rifidi.org.relique.jdbc"/>
+<plugin id="org.apache.commons.pool"/>
+<plugin id="org.apache.geronimo.specs.geronimo-jms_1.1_spec"/>
+<plugin id="com.springsource.javax.ejb"/>
+<plugin id="com.springsource.javax.xml.bind"/>
+<plugin id="org.apache.commons.digester"/>
+<plugin id="org.rifidi.edge.readerplugin.awid.source"/>
+<plugin id="org.rifidi.edge.readerplugin.opticon.source"/>
+<plugin id="org.rifidi.edge.readerplugin.llrp"/>
+<plugin id="com.springsource.org.apache.tools.ant"/>
+<plugin id="org.springframework.web"/>
+<plugin id="org.rifidi.edge.readerplugin.alien.commands.source"/>
+<plugin id="org.springframework.jms"/>
+<plugin id="org.rifidi.edge.core.services.provisioning.source"/>
+<plugin id="org.rifidi.org.llrp.ltk"/>
+<plugin id="com.springsource.org.apache.coyote"/>
+<plugin id="com.springsource.javax.persistence"/>
+<plugin id="org.apache.derby"/>
+<plugin id="org.rifidi.edge.core"/>
+<plugin id="org.apache.activemq.activemq-core"/>
+<plugin id="org.rifidi.edge.app.diag"/>
+<plugin id="org.rifidi.edge.core.services.notification"/>
+<plugin id="com.springsource.org.aopalliance"/>
+<plugin id="org.springframework.osgi.catalina.start.osgi"/>
+<plugin id="org.apache.geronimo.specs.geronimo-activation_1.1_spec"/>
+<plugin id="org.rifidi.edge.core.source"/>
+<plugin id="org.springframework.core"/>
+<plugin id="com.springsource.slf4j.log4j"/>
+<plugin id="org.jdom"/>
+<plugin id="org.apache.commons.beanutils"/>
+<plugin id="org.springframework.transaction"/>
+<plugin id="org.springframework.web.servlet"/>
+<plugin id="org.springframework.osgi.core"/>
+<plugin id="com.springsource.javax.servlet"/>
+<plugin id="org.eclipse.equinox.weaving.aspectj"/>
+<plugin id="org.rifidi.edge.readerplugin.thingmagic.commands.source"/>
+<plugin id="org.rifidi.edge.readerplugin.awid.commands.source"/>
+<plugin id="com.springsource.javax.el"/>
+<plugin id="org.rifidi.edge.core.services"/>
+<plugin id="com.springsource.javax.annotation"/>
+<plugin id="org.rifidi.edge.core.rmi.server.source"/>
+<plugin id="org.rifidi.edge.core.rmi.server"/>
+<plugin id="org.springframework.beans"/>
+<plugin id="org.rifidi.edge.core.app.api.resources.source"/>
+<plugin id="com.springsource.javax.servlet.jsp"/>
+<plugin id="org.rifidi.edge.init"/>
+<plugin id="org.springframework.jdbc"/>
+<plugin id="org.rifidi.edge.readerplugin.thingmagic.source"/>
+<plugin id="org.eclipse.equinox.simpleconfigurator"/>
+<plugin id="com.springsource.javax.xml.stream"/>
+<plugin id="org.rifidi.edge.readerplugin.thingmagic"/>
+<plugin id="org.rifidi.edge.readerplugin.awid"/>
+<plugin id="com.springsource.org.apache.commons.codec"/>
+<plugin id="org.rifidi.edge.api.source"/>
+<plugin id="org.springframework.orm"/>
+<plugin id="org.rifidi.edge.core.app.api.source"/>
+<plugin id="com.springsource.org.apache.log4j"/>
+<plugin id="com.springsource.org.apache.juli.extras"/>
+<plugin id="org.apache.felix.commons.commons-configuration"/>
+<plugin id="org.rifidi.edge.readerplugin.alien"/>
+<plugin id="org.rifidi.org.antlr.runtime"/>
+<plugin id="org.eclipse.equinox.weaving.caching"/>
+<plugin id="org.springframework.bundle.spring.aspects"/>
+<plugin id="com.springsource.javax.xml.ws"/>
+<plugin id="org.rifidi.edge.core.services.provisioning"/>
+<plugin id="org.springframework.security.core"/>
+<plugin id="org.rifidi.edge.readerplugin.awid.commands"/>
+<plugin id="org.apache.xbean.spring"/>
+<plugin id="org.rifidi.edge.epcglobal.ale.api.read"/>
+<plugin id="org.eclipse.osgi.services"/>
+<plugin id="org.eclipse.equinox.weaving.hook"/>
+<plugin id="org.rifidi.edge.readerplugin.generic.source"/>
+<plugin id="org.springframework.context.support"/>
+<plugin id="org.apache.commons.jxpath"/>
+<plugin id="org.aspectj.runtime"/>
+<plugin id="com.springsource.org.apache.el"/>
+<plugin id="org.rifidi.org.springframework.aop"/>
+<plugin id="com.springsource.org.apache.jasper.org.eclipse.jdt"/>
+<plugin id="com.springsource.org.apache.commons.logging"/>
+<plugin id="com.springsource.javax.xml.rpc"/>
+<plugin id="org.rifidi.edge.core.app.api"/>
+<plugin id="org.rifidi.edge.epcglobal.ale.api.logicalreader"/>
+<plugin id="org.apache.geronimo.specs.geronimo-javamail_1.4_spec"/>
+<plugin id="org.rifidi.edge.core.services.logging.source"/>
+<plugin id="org.rifidi.edge.readerplugin.alien.source"/>
+<plugin id="org.rifidi.edge.catalina.config"/>
+<plugin id="org.springframework.osgi.web"/>
+<plugin id="org.rifidi.edge.epcglobal.ale.api.read.source"/>
+<plugin id="org.eclipse.equinox.weaving.caching.j9"/>
+<plugin id="org.apache.commons.lang"/>
+<plugin id="org.apache.felix.bundlerepository"/>
+<plugin id="org.apache.activemq.kahadb"/>
+<plugin id="org.rifidi.edge.readerplugin.llrp.source"/>
+<plugin id="org.apache.activemq.activemq-pool"/>
+<plugin id="org.rifidi.edge.core.services.jms.source"/>
+<plugin id="org.rifidi.edge.core.services.logging"/>
+<plugin id="com.springsource.net.sf.cglib"/>
+<plugin id="org.rifidi.edge.readerplugin.opticon"/>
+<plugin id="org.rifidi.edge.epcglobal.ale.api.logicalreader.source"/>
+<plugin id="com.espertech.esper"/>
+<plugin id="com.springsource.org.apache.commons.dbcp"/>
+<plugin id="org.rifidi.edge.core.services.jms"/>
+<plugin id="org.rifidi.edge.console"/>
+<plugin id="org.springframework.osgi.extender"/>
+<plugin id="org.rifidi.edge.core.app.api.resources"/>
+<plugin id="com.springsource.org.apache.taglibs.standard"/>
+<plugin id="com.springsource.javax.xml.soap"/>
+<plugin id="org.rifidi.edge.api"/>
+<plugin id="org.eclipse.osgi"/>
+<plugin id="com.springsource.javax.servlet.jsp.jstl"/>
+<plugin id="org.rifidi.edge.core.services.source"/>
+<plugin id="org.rifidi.org.springframework.context"/>
+<plugin id="org.rifidi.edge.app.diag.source"/>
+<plugin id="javax.servlet"/>
+<plugin id="org.rifidi.edge.console.source"/>
+<plugin id="org.fosstrak.tdt.tdt"/>
+<plugin id="com.springsource.org.apache.catalina"/>
+<plugin id="com.mysql.jdbc"/>
+<plugin id="org.rifidi.edge.readerplugin.thingmagic.commands"/>
+<plugin id="org.rifidi.edge.readerplugin.generic"/>
+<plugin id="org.rifidi.edge.catalina.config.source"/>
+</includeBundles>
+<environment>
+<os>win32</os>
+<ws>win32</ws>
+<arch>x86</arch>
+<nl>en_US</nl>
+</environment>
+</target>

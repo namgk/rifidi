@@ -1,0 +1,68 @@
+Manifest-Version: 1.0
+Export-Package: org.apache.taglibs.standard;version="1.1.2",org.apache
+ .taglibs.standard.extra.spath;version="1.1.2";uses:="javax.servlet.js
+ p,org.xml.sax",org.apache.taglibs.standard.functions;version="1.1.2";
+ uses:="javax.servlet.jsp",org.apache.taglibs.standard.lang.jstl;versi
+ on="1.1.2";uses:="javax.servlet,javax.servlet.http,javax.servlet.jsp,
+ javax.servlet.jsp.tagext,org.apache.taglibs.standard.lang.jstl.parser
+ ",org.apache.taglibs.standard.lang.jstl.parser;version="1.1.2";uses:=
+ "org.apache.taglibs.standard.lang.jstl",org.apache.taglibs.standard.l
+ ang.jstl.test;version="1.1.2";uses:="javax.servlet,javax.servlet.http
+ ,javax.servlet.jsp,javax.servlet.jsp.el",org.apache.taglibs.standard.
+ lang.jstl.test.beans;version="1.1.2",org.apache.taglibs.standard.lang
+ .support;version="1.1.2";uses:="javax.servlet.jsp,javax.servlet.jsp.t
+ agext",org.apache.taglibs.standard.resources;version="1.1.2",org.apac
+ he.taglibs.standard.tag.common.core;version="1.1.2";uses:="javax.serv
+ let,javax.servlet.http,javax.servlet.jsp,javax.servlet.jsp.el",org.ap
+ ache.taglibs.standard.tag.common.fmt;version="1.1.2";uses:="javax.ser
+ vlet.jsp,javax.servlet.jsp.jstl.fmt,javax.servlet.jsp.tagext",org.apa
+ che.taglibs.standard.tag.common.sql;version="1.1.2";uses:="javax.serv
+ let.jsp,javax.sql",org.apache.taglibs.standard.tag.common.xml;version
+ ="1.1.2";uses:="javax.servlet.jsp,javax.servlet.jsp.tagext,javax.xml.
+ transform,org.apache.xml.utils,org.apache.xpath,org.apache.xpath.obje
+ cts,org.w3c.dom,org.w3c.dom.traversal,org.xml.sax",org.apache.taglibs
+ .standard.tag.el.core;version="1.1.2";uses:="javax.servlet.jsp,javax.
+ servlet.jsp.tagext",org.apache.taglibs.standard.tag.el.fmt;version="1
+ .1.2";uses:="javax.servlet.jsp",org.apache.taglibs.standard.tag.el.sq
+ l;version="1.1.2";uses:="javax.servlet.jsp",org.apache.taglibs.standa
+ rd.tag.el.xml;version="1.1.2";uses:="javax.servlet.jsp",org.apache.ta
+ glibs.standard.tag.rt.core;version="1.1.2";uses:="javax.servlet.jsp",
+ org.apache.taglibs.standard.tag.rt.fmt;version="1.1.2";uses:="javax.s
+ ervlet.jsp,javax.servlet.jsp.jstl.fmt",org.apache.taglibs.standard.ta
+ g.rt.sql;version="1.1.2";uses:="javax.servlet.jsp",org.apache.taglibs
+ .standard.tag.rt.xml;version="1.1.2";uses:="javax.servlet.jsp,javax.x
+ ml.transform,org.xml.sax",org.apache.taglibs.standard.tei;version="1.
+ 1.2";uses:="javax.servlet.jsp.tagext",org.apache.taglibs.standard.tlv
+ ;version="1.1.2";uses:="javax.servlet.jsp.tagext,org.xml.sax,org.xml.
+ sax.helpers"
+Implementation-Title: jakarta-taglibs 'standard': an implementation of
+  JSTL
+Bundle-Classpath: .
+Implementation-Version: 1.1.2
+Bundle-Name: Apache Standard Tag Libraries
+Created-By: 1.4.2-38 ("Apple Computer, Inc.")
+Ant-Version: Apache Ant 1.6.1
+Implementation-Vendor: Apache Software Foundation
+Bundle-Vendor: SpringSource
+Implementation-Vendor-Id: org.apache
+Bundle-Version: 1.1.2
+Specification-Title: JavaServer Pages Standard Tag Library (JSTL)
+Bundle-ManifestVersion: 2
+Import-Package: javax.naming,javax.servlet;version="[2.5.0, 3.0.0)",ja
+ vax.servlet.http;version="[2.5.0, 3.0.0)",javax.servlet.jsp;version="
+ [2.1.0, 3.0.0)",javax.servlet.jsp.el;version="[2.1.0, 3.0.0)",javax.s
+ ervlet.jsp.jstl.core;version="[1.1.2, 2.0.0)",javax.servlet.jsp.jstl.
+ fmt;version="[1.1.2, 2.0.0)",javax.servlet.jsp.jstl.sql;version="[1.1
+ .2, 2.0.0)",javax.servlet.jsp.tagext;version="[2.1.0, 3.0.0)",javax.s
+ ql,javax.xml.parsers,javax.xml.transform,javax.xml.transform.dom,java
+ x.xml.transform.sax,javax.xml.transform.stream,org.apache.xalan.seria
+ lize;version="[2.7.0, 3.0.0)";resolution:=optional,org.apache.xalan.t
+ emplates;version="[2.7.0, 3.0.0)";resolution:=optional,org.apache.xml
+ .utils;version="[2.7.0, 3.0.0)";resolution:=optional,org.apache.xpath
+ ;version="[2.7.0, 3.0.0)";resolution:=optional,org.apache.xpath.objec
+ ts;version="[2.7.0, 3.0.0)";resolution:=optional,org.w3c.dom,org.xml.
+ sax,org.xml.sax.helpers
+Specification-Version: 1.1
+Bundle-SymbolicName: com.springsource.org.apache.taglibs.standard
+Extension-Name: org.apache.taglibs.standard
+
