@@ -29,18 +29,23 @@
  * 
  * This file is part of the IoTSyS project.
  ******************************************************************************/
-
 package at.ac.tuwien.auto.iotsys.gateway.obix.objects;
 
+import obix.ContractRegistry;
+import obix.contracts.Id;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.AirDamperActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.BoilerActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.BrightnessActuator;
+//import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.ChillerActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.CoolerActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.FanSpeedActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.HVACvalveActuator;
+//import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.HeatPumpActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.LightSwitchActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.PumpActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.SunblindActuator;
+import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.IndoorBrightnessSensor;
+import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.OutsideTemperatureSensor;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.PresenceDetectorSensor;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.PushButton;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.RoomRelativeHumiditySensor;
@@ -48,13 +53,13 @@ import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.ShuttersAndBlin
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.SmartMeter;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.SunIntensitySensor;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.TemperatureSensor;
-import obix.*;
 
 public class ContractInit
 {
 
   public static void init()
   {
+	  ContractRegistry.put(Id.CONTRACT, Id.class.getName());
 	  ContractRegistry.put(LightSwitchActuator.CONTRACT, LightSwitchActuator.class.getName());
 	  ContractRegistry.put(BrightnessActuator.CONTRACT, BrightnessActuator.class.getName());
 	  ContractRegistry.put(PushButton.CONTRACT, PushButton.class.getName());
@@ -66,6 +71,8 @@ public class ContractInit
 	  ContractRegistry.put(RoomRelativeHumiditySensor.CONTRACT,RoomRelativeHumiditySensor.class.getName());
 	  ContractRegistry.put(SunIntensitySensor.CONTRACT,SunIntensitySensor.class.getName());
 	  ContractRegistry.put(SmartMeter.CONTRACT, SmartMeter.class.getName());
+	  ContractRegistry.put(IndoorBrightnessSensor.CONTRACT, IndoorBrightnessSensor.class.getName());
+	  ContractRegistry.put(OutsideTemperatureSensor.CONTRACT, OutsideTemperatureSensor.class.getName());
 	  
 	  //Actuator
 	  ContractRegistry.put(FanSpeedActuator.CONTRACT,FanSpeedActuator.class.getName());
@@ -75,7 +82,7 @@ public class ContractInit
 	  ContractRegistry.put(CoolerActuator.CONTRACT, CoolerActuator.class.getName());
 	  ContractRegistry.put(PumpActuator.CONTRACT, PumpActuator.class.getName());
 	  ContractRegistry.put(SunblindActuator.CONTRACT, SunblindActuator.class.getName());
-	  
+	  	  
 	  ContractRegistry.buildReverseMap();
   }
 

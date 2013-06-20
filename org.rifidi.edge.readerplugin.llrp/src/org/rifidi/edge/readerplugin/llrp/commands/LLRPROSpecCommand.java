@@ -87,6 +87,7 @@ public class LLRPROSpecCommand extends AbstractLLRPCommand {
 	public LLRPROSpecCommand(String commandID) {
 		super(commandID);
 		antenna_array = new UnsignedShortArray();
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Construct ROSpec Command");
 	}
 
 	/**
@@ -144,6 +145,7 @@ public class LLRPROSpecCommand extends AbstractLLRPCommand {
 	 */
 	@Override
 	protected void execute() throws TimeoutException {
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>run ROSpec Command");
 		this.session = (LLRPReaderSession) this.sensorSession;
 		try {
 			boolean is_taken = false;

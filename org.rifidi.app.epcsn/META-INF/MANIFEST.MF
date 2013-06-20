@@ -13,5 +13,5 @@ Import-Package: com.espertech.esper.client,
  org.rifidi.edge.epcglobal.aleread
 Require-Bundle: org.rifidi.edge.core.app.api;bundle-version="1.0.0",
  org.rifidi.edge.core.services;bundle-version="1.3.0",
- org.fosstrak.tdt.tdt;bundle-version="0.9.0",
- org.rifidi.edge.epcglobal.ale.api.read
+ org.rifidi.edge.epcglobal.ale.api.read,
+ org.fosstrak.tdt;bundle-version="1.0.0"

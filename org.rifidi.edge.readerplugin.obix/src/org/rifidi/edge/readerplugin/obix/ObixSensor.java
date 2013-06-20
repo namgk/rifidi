@@ -32,19 +32,13 @@ import org.rifidi.edge.core.exceptions.CannotCreateSessionException;
 import org.rifidi.edge.core.sensors.SensorSession;
 import org.rifidi.edge.core.sensors.base.AbstractSensor;
 import org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration;
-import org.rifidi.edge.core.sensors.exceptions.CannotDestroySensorException;
 
 /**
- * A obix plugin that can handle data coming in from any reader or source, if it
- * is sent to the serversocket in the correct format. The format is as follows:
+ * The oBix sensor
  * 
- * ID:(tag ID)|Antenna:(antenna)|Timestamp:(millis since epoch)
- * 
- * Any amount of other values can be specified in pairs delimited by colons,
- * with pipes delimiting pairs.
- * 
- * @author Matthew Dean - matt@pramari.com
+ * @author Nam Giang - zang at kaist dot ac dot kr
  */
+
 @JMXMBean
 public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 
@@ -52,11 +46,6 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	private static final Log logger = LogFactory.getLog(ObixSensor.class);
 	/** Flag to check if this reader is destroyed. */
 	private AtomicBoolean destroyed = new AtomicBoolean(false);
-	/** A queue for putting commands to be executed next */
-	// private final LinkedBlockingQueue<ObixCommandObjectWrapper>
-	// propCommandsToBeExecuted;
-	/** A hashmap containing all the properties for this reader */
-	private final ConcurrentHashMap<String, String> readerProperties;
 	/** IP address of the sensorSession. */
 	private volatile String ipAddress = ObixReaderDefaultValues.IPADDRESS;
 	/** Port to connect to. */
@@ -82,7 +71,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	private final Set<AbstractCommandConfiguration<?>> commands;
 
 	/** The only session an obix reader allows. */
-	private AtomicReference<ObixSensorIPPollSession> session = new AtomicReference<ObixSensorIPPollSession>();
+	private AtomicReference<ObixSensorSession> session = new AtomicReference<ObixSensorSession>();
 
 	/** MBeanInfo for this class. */
 	public static final MBeanInfo mbeaninfo;
@@ -94,7 +83,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	public ObixSensor(Set<AbstractCommandConfiguration<?>> commands) {
 		super();
 		this.commands = commands;
-		readerProperties = new ConcurrentHashMap<String, String>();
+		new ConcurrentHashMap<String, String>();
 	}
 
 	/*
@@ -119,7 +108,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 		logger.info("create Obix Session.");
 		if (!destroyed.get() && session.get() == null) {
 			Integer sessionID = this.sessionID.incrementAndGet();
-			if (session.compareAndSet(null, new ObixSensorIPPollSession(this,
+			if (session.compareAndSet(null, new ObixSensorSession(this,
 					Integer.toString(sessionID), ipAddress, port, notifyPort,
 					ioStreamPort, (int) (long) reconnectionInterval,
 					maxNumConnectionAttempts, username, password,
@@ -146,7 +135,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 		logger.info("create Obix Session with sessio DTO");
 		if (!destroyed.get() && session.get() == null) {
 			Integer sessionID = this.sessionID.incrementAndGet();
-			if (session.compareAndSet(null, new ObixSensorIPPollSession(this,
+			if (session.compareAndSet(null, new ObixSensorSession(this,
 					Integer.toString(sessionID), ipAddress, port, notifyPort,
 					ioStreamPort, (int) (long) reconnectionInterval,
 					maxNumConnectionAttempts, username, password,
@@ -168,8 +157,19 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	 * (java.lang.String)
 	 */
 	@Override
-	public void destroySensorSession(String id)
-			throws CannotDestroySensorException {
+	public void destroySensorSession(String id) {
+		ObixSensorSession obixSession = session.get();
+		if (obixSession != null) {
+			if (obixSession.getID().equals(id)) {
+				obixSession.killAllCommands();
+				obixSession.disconnect();
+				// TODO: remove this once we get AspectJ in here!
+				session.set(null);
+				notifierService
+						.removeSessionEvent(this.getID(), id);
+			}
+		}
+		logger.warn("Tried to delete a non existant session: " + id);
 
 	}
 
@@ -181,7 +181,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	@Override
 	public Map<String, SensorSession> getSensorSessions() {
 		Map<String, SensorSession> ret = new HashMap<String, SensorSession>();
-		ObixSensorIPPollSession obixSession = session.get();
+		ObixSensorSession obixSession = session.get();
 		if (obixSession != null) {
 			ret.put(obixSession.getID(), obixSession);
 		}
@@ -368,6 +368,22 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	 */
 	public void setMaxNumConnectionAttempts(Integer maxNumConnectionAttempts) {
 		this.maxNumConnectionAttempts = maxNumConnectionAttempts;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.rifidi.edge.core.configuration.RifidiService#destroy()
+	 */
+	@Override
+	protected void destroy() {
+		if (destroyed.compareAndSet(false, true)) {
+			super.destroy();
+			ObixSensorSession obixSession = session.get();
+			if (obixSession != null) {
+					destroySensorSession(obixSession.getID());
+			}
+		}
 	}
 
 }

@@ -13,19 +13,10 @@
 	</bean>
 
 	<!-- Create Command Configuration Factory -->
-	<bean id="ObixCmdCfgFactory"
-		class="org.rifidi.edge.readerplugin.obix.commands.ObixCmdCfgFactory">
+	<bean id="ObixCommandFactory"
+		class="org.rifidi.edge.readerplugin.obix.commands.ObixCommandFactory">
 		<property name="context" ref="bundleContext" />
 	</bean>
-
-	<!-- Put reader configuration service in OSGi registry -->
-	<osgi:service id="ObixSensorConfigurationFactoryService"
-		ref="ObixSensorFactory">
-		<osgi:interfaces>
-			<value>org.rifidi.edge.core.configuration.ServiceFactory</value>
-			<value>org.rifidi.edge.core.sensors.base.AbstractSensorFactory</value>
-		</osgi:interfaces>
-	</osgi:service>
 
 	<osgi:set id="obixCommands"
 		interface="org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration"
@@ -34,8 +25,17 @@
 			bind-method="bindCommandConfiguration" unbind-method="unbindCommandConfiguration" />
 	</osgi:set>
 
+	<!-- Put reader factory service in OSGi registry -->
+	<osgi:service id="ObixSensorFactoryService"
+		ref="ObixSensorFactory">
+		<osgi:interfaces>
+			<value>org.rifidi.edge.core.configuration.ServiceFactory</value>
+			<value>org.rifidi.edge.core.sensors.base.AbstractSensorFactory</value>
+		</osgi:interfaces>
+	</osgi:service>
+	
 	<!-- Put command configuration service in OSGi Registry -->
-	<osgi:service id="ObixCmdCfgFactoryService" ref="ObixCmdCfgFactory">
+	<osgi:service id="ObixCommandFactoryService" ref="ObixCommandFactory">
 		<osgi:interfaces>
 			<value>org.rifidi.edge.core.configuration.ServiceFactory</value>
 			<value>org.rifidi.edge.core.configuration.impl.AbstractCommandConfigurationFactory</value>

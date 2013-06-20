@@ -129,7 +129,7 @@ public class LLRPReaderSession extends AbstractSensorSession implements
 	 */
 	@Override
 	protected synchronized void _connect() throws IOException {
-		logger.info("LLRP Session " + this.getID() + " on sensor "
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LLRP Session " + this.getID() + " on sensor "
 				+ this.getSensor().getID() + " attempting to connect to "
 				+ host + ":" + port);
 		this.setStatus(SessionStatus.CONNECTING);
@@ -185,7 +185,7 @@ public class LLRPReaderSession extends AbstractSensorSession implements
 		timingOut.set(false);
 		onConnect();
 
-		logger.info("LLRP Session " + this.getID() + " on sensor "
+		logger.info(">>>>>>>>>>>>>>>>>>>LLRP Session " + this.getID() + " on sensor "
 				+ this.getSensor().getID() + " connected to " + host + ":"
 				+ port);
 	}
@@ -195,7 +195,7 @@ public class LLRPReaderSession extends AbstractSensorSession implements
 	 * connection. It occurs before any commands are scheduled
 	 */
 	private void onConnect() {
-		logger.info("LLRP Session " + this.getID() + " on sensor "
+		logger.info(">>>>>>>>>>>>>>>>>>>LLRP Session " + this.getID() + " on sensor "
 				+ this.getSensor().getID() + " attempting to log in to " + host
 				+ ":" + port);
 		setStatus(SessionStatus.LOGGINGIN);

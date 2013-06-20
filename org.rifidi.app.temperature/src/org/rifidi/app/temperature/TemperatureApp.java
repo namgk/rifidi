@@ -32,6 +32,7 @@ import org.rifidi.edge.epcglobal.ale.api.read.data.ECReportGroupListMember;
 import org.rifidi.edge.epcglobal.ale.api.read.data.ECReportGroupListMemberExtension;
 import org.rifidi.edge.epcglobal.ale.api.read.data.ECReportMemberField;
 import org.rifidi.edge.epcglobal.ale.api.read.data.ECReports;
+import org.rifidi.edge.epcglobal.ale.api.read.data.ObjectFactory;
 import org.rifidi.edge.epcglobal.aleread.EPCDataContainerAdapter;
 import org.rifidi.edge.epcglobal.aleread.filters.ReportALEField;
 import org.rifidi.edge.epcglobal.aleread.wrappers.ReportAnswer;
@@ -57,6 +58,8 @@ public class TemperatureApp extends AbstractRifidiApp {
 	/** JAXB for serializing the results. */
 	private JAXBContext cont;
 	private Marshaller marsh;
+	
+	private static final ObjectFactory objectFactoryALE = new ObjectFactory();
 	
 	//list of readers implemented by ArrayList
 	List<String> readerList = new ArrayList<String>();
@@ -183,14 +186,14 @@ public class TemperatureApp extends AbstractRifidiApp {
 					
 					logger.info("Sending report to EPCIS");				
 					try {
-						Socket socket = new Socket("127.0.0.1", Integer.parseInt("8080"));
+						Socket socket = new Socket("127.0.0.1", Integer.parseInt("9999"));
 						//Socket socket = new Socket("143.248.106.136", Integer.parseInt("9999"));
 						PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
 						try {
 							ReportAnswer answer = new ReportAnswer();
 							answer.reports = reports;
-							marsh.marshal(answer, out);
+							marsh.marshal(objectFactoryALE.createECReports(reports), out);
 						} catch (JAXBException e) {
 							logger.info("Problem serializing to xml: "+e);
 						}
@@ -217,14 +220,14 @@ public class TemperatureApp extends AbstractRifidiApp {
 		addStatement("insert into sensedTemperatureWindow select * " +
 				"from IoTSensedEvent where sensingDevice='Alien_1'");	
 		addStatement("insert into sensedTemperatureWindow select * " +
-		"from IoTSensedEvent where sensingDevice='SNAIL_1'");	
+		"from IoTSensedEvent where sensingDevice='Obix_1'");	
 		
 		//register the listener for interesting readers
 		Iterator it=readerList.iterator(); 		
 		//while(it.hasNext()) {
 			//addStatement("select * from sensedTemperatureWindow where readerID = '"+ (String)it.next() + "'",sensedTemperatureEventListner);
 			addStatement("select * from sensedTemperatureWindow where sensingDevice='Alien_1'", sensedTemperatureEventListner);			
-			addStatement("select * from sensedTemperatureWindow where sensingDevice='SNAIL_1'", sensedTemperatureEventListner);
+			addStatement("select * from sensedTemperatureWindow where sensingDevice='OBIX_1'", sensedTemperatureEventListner);
 		//}
 	}
 
