@@ -18,6 +18,7 @@ package org.rifidi.edge.epcglobal.aleread.service;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,8 +44,8 @@ import com.espertech.esper.client.EPServiceProvider;
  */
 public class ECSPECManagerServiceImpl implements ECSPECManagerService {
 	/** Logger for this class. */
-	private static final Log logger = LogFactory
-			.getLog(ECSPECManagerService.class);
+	private static final Log logger =
+			LogFactory.getLog(ECSPECManagerService.class);
 	/** Map containing the spec name as key and the spec as value. */
 	private Map<String, RifidiECSpec> nameToSpec;
 	/** Esper engine isntance. */
@@ -55,6 +56,7 @@ public class ECSPECManagerServiceImpl implements ECSPECManagerService {
 	 */
 	public ECSPECManagerServiceImpl() {
 		nameToSpec = new HashMap<String, RifidiECSpec>();
+		System.out.println("<<<<<<<<< A new Ecspec mgmt service is created");
 	}
 
 	/**
@@ -84,8 +86,8 @@ public class ECSPECManagerServiceImpl implements ECSPECManagerService {
 		synchronized (this) {
 			logger.debug("Creating " + name);
 			if (!nameToSpec.containsKey(name)) {
-				RifidiECSpec ecSpec = new RifidiECSpec(name, spec, esper,
-						rifidiBoundarySpec, readers, primarykeys, reports);
+				RifidiECSpec ecSpec =
+						new RifidiECSpec(name, spec, esper, rifidiBoundarySpec, readers, primarykeys, reports);
 				nameToSpec.put(name, ecSpec);
 				logger.debug("Created " + name);
 				return;
@@ -184,6 +186,24 @@ public class ECSPECManagerServiceImpl implements ECSPECManagerService {
 			throw new NoSuchNameExceptionResponse("A spec named " + specName
 					+ " doesn't exist. ");
 		}
+	}
+
+	public RifidiECSpec getRifidiECSpecByReader(String readerName) {
+		Iterator i = nameToSpec.entrySet().iterator();
+		while (i.hasNext()) {
+			Map.Entry<String, RifidiECSpec> aPair =
+					(Map.Entry<String, RifidiECSpec>) i.next();
+			if (aPair.getValue().getSpec().getLogicalReaders().getLogicalReader().contains(readerName)) {
+				System.out.println("LR found in subscription: " + readerName);
+				return aPair.getValue();
+			}
+		}
+		return null;
+	}
+	
+	public List<String> getSubscriptionsByLRName(String readerName) {
+		RifidiECSpec r = getRifidiECSpecByReader(readerName);
+		return r.getSubscriptions();
 	}
 
 	/*

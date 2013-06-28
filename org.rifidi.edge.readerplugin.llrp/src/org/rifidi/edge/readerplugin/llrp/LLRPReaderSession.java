@@ -532,7 +532,7 @@ public class LLRPReaderSession extends AbstractSensorSession implements
 
 	/**
 	 * This method receives asynchronous messages back from the LLRP reader. We
-	 * add relavent events to the esper runtime
+	 * add relevant events to the esper runtime
 	 */
 	@Override
 	public void messageReceived(LLRPMessage arg0) {

@@ -46,8 +46,6 @@ public class ALEServicePortTypeImpl implements ALEServicePortType {
 			.getLog(ALEServicePortTypeImpl.class);
 	/** Service that manages the ecspecs. */
 	private ECSPECManagerService ecspecManagerService;
-	/** Service for managing logical readers. */
-	private SensorManagementService sensorManagementBinding;
 	/** Factory for creating reports. */
 	private RifidiReportFactory reportFactory;
 
@@ -82,6 +80,7 @@ public class ALEServicePortTypeImpl implements ALEServicePortType {
 		logger.info("Executing operation getECSpecNames");
 		ArrayOfString ret = new ArrayOfString();
 		ret.getString().addAll(ecspecManagerService.getNames());
+		logger.info("ECSpecNames: " + ecspecManagerService.getNames());
 		return ret;
 	}
 
@@ -348,16 +347,8 @@ public class ALEServicePortTypeImpl implements ALEServicePortType {
 	 */
 	public void setEcspecManagerService(
 			ECSPECManagerService ecspecManagerService) {
+		System.out.println("||||||||||||| Seting up ECSpec Mgmt Service");
 		this.ecspecManagerService = ecspecManagerService;
-	}
-
-	/**
-	 * @param sensorManagementBinding
-	 *            the sensorManagementBinding to set
-	 */
-	public void setSensorManagementBinding(
-			SensorManagementService sensorManagementBinding) {
-		this.sensorManagementBinding = sensorManagementBinding;
 	}
 
 	/**

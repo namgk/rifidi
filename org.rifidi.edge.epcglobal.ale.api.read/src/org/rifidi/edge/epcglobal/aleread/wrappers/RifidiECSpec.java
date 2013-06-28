@@ -66,7 +66,7 @@ public class RifidiECSpec implements SignalListener {
 	/** All statements that got created. */
 	private List<StatementController> startStatementControllers;
 	private List<StatementController> stopStatementControllers;
-	private List<EPStatement> collectionStatements;
+//	private List<EPStatement> collectionStatements;
 
 	private ReentrantLock startLock;
 	/**
@@ -127,16 +127,17 @@ public class RifidiECSpec implements SignalListener {
 
 		startStatementControllers = new ArrayList<StatementController>();
 		stopStatementControllers = new ArrayList<StatementController>();
-		collectionStatements = new ArrayList<EPStatement>();
-		collectionStatements.add(esper.getEPAdministrator().createEPL(
+//		collectionStatements = new ArrayList<EPStatement>();
+//		collectionStatements.add();
+		this.esper.getEPAdministrator().createEPL(
 				"insert into ecspec_" + name
 						+ " select * from ReadCycle[select * from tags] where readerID in ("
-						+ assembleLogicalReader(readers) + ") "));
+						+ assembleLogicalReader(this.readers) + ") ");
 		// add a timer if we got triggers
 		if (rifidiBoundarySpec.getStartTriggers().size() != 0
 				|| rifidiBoundarySpec.getStopTriggers() != null) {
 			timer = new Timer(rifidiBoundarySpec.getStartTriggers(),
-					rifidiBoundarySpec.getStopTriggers(), esper);
+					rifidiBoundarySpec.getStopTriggers(), this.esper);
 		}
 		// TODO: When data available needs to be added ASAP!!!
 		if (rifidiBoundarySpec.isWhenDataAvailable()) {
@@ -146,7 +147,7 @@ public class RifidiECSpec implements SignalListener {
 			logger.debug("Initializing duration timing with duration="
 					+ rifidiBoundarySpec.getDuration());
 			DurationTimingStatement durationTimingStatement = new DurationTimingStatement(
-					esper.getEPAdministrator(), "ecspec_" + name,
+					this.esper.getEPAdministrator(), "ecspec_" + name,
 					rifidiBoundarySpec.getDuration(), this.primarykeys);
 			durationTimingStatement.registerSignalListener(this);
 			stopStatementControllers.add(durationTimingStatement);
@@ -173,14 +174,14 @@ public class RifidiECSpec implements SignalListener {
 		if (rifidiBoundarySpec.getStartTriggers().size() > 0) {
 			instantStart = false;
 			StartEventStatement startEventStatement = new StartEventStatement(
-					esper.getEPAdministrator());
+					this.esper.getEPAdministrator());
 			startEventStatement.registerSignalListener(this);
 			startEventStatement.start();
 			startStatementControllers.add(startEventStatement);
 		}
 		if (rifidiBoundarySpec.getRepeatInterval() > 0) {
 			IntervalTimingStatement intervalTimingStatement = new IntervalTimingStatement(
-					esper.getEPAdministrator(), rifidiBoundarySpec
+					this.esper.getEPAdministrator(), rifidiBoundarySpec
 							.getRepeatInterval());
 			intervalTimingStatement.registerSignalListener(this);
 			startStatementControllers.add(intervalTimingStatement);

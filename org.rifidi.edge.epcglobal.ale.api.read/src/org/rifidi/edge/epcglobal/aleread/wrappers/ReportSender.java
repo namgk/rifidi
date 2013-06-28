@@ -17,6 +17,7 @@ package org.rifidi.edge.epcglobal.aleread.wrappers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -165,8 +166,8 @@ public class ReportSender implements Runnable {
 						- container.startTime);
 				// send it
 				for (String uri : subscriptionURIs) {
-					logger.debug("Sending report to " + uri);
-					System.out.println("Sending ALE report to " + uri);
+					logger.debug(">>>>> Sending report to " + uri);
+					System.out.println("Report sender sending ALE report to " + uri);
 					
 					try {
 
@@ -190,9 +191,14 @@ public class ReportSender implements Runnable {
 								.getOutputStream(), true);
 
 						try {
-							ReportAnswer answer = new ReportAnswer();
-							answer.reports = reports;
 							marsh.marshal(objectFactoryALE.createECReports(reports), out);
+							
+							StringWriter sw = new StringWriter();
+							marsh.marshal(objectFactoryALE.createECReports(reports), sw);
+							System.out.println("Sent ECReport via Report sender: \n"
+									+ sw.toString());
+							
+							
 						} catch (JAXBException e) {
 							logger.fatal("Problem serializing to xml: "+e);
 						}

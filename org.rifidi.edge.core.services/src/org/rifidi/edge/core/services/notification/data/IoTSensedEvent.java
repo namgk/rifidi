@@ -39,7 +39,7 @@ public class IoTSensedEvent implements Serializable {
 		this.sensedEvents = new HashMap<String, Serializable>();
 		this.sensedEventValue = value;
 		this.timestamp = timestamp;		
-		toString = "[IoT RAW EVENT][EPC:" + epcAddr + "][sensingDevice:" + sensorID + 
+		toString = "[IoT RAW EVENT][EPC:" + epc + "][sensingDevice:" + sensingDevice + 
 					"][timestamp:" + timestamp + "]";
 		//System.out.println("sensorID: " + sensorID + "/sensed value: " + value);
 	}

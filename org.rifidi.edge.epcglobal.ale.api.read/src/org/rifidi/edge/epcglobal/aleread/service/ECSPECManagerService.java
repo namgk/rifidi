@@ -76,6 +76,8 @@ public interface ECSPECManagerService {
 	 */
 	public List<String> getSubscriptions(String specName)
 			throws NoSuchNameExceptionResponse;
+	
+	public List<String> getSubscriptionsByLRName(String readerName);
 
 	/**
 	 * Create a new spec with the given name.

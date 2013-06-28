@@ -5,6 +5,7 @@ package org.rifidi.app.temperature;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -49,9 +50,6 @@ import com.espertech.esper.client.StatementAwareUpdateListener;
  */
 public class TemperatureApp extends AbstractRifidiApp {
 
-	private float indoorLowerBoundTemp = 0;
-	private float indoorUpperBoundTemp = 0;	
-	
 	/** Logger for this class. */
 	private static final Log logger = LogFactory.getLog(TemperatureApp.class);
 	
@@ -121,7 +119,7 @@ public class TemperatureApp extends AbstractRifidiApp {
 					group.setGroupList(ecReportGroupList);
 					
 					ECReportGroupListMember member = new ECReportGroupListMember();
-					EPCDataContainerAdapter adapter = new EPCDataContainerAdapter();
+					new EPCDataContainerAdapter();
 					EPC epc = new EPC();
 					
 					try {
@@ -171,7 +169,7 @@ public class TemperatureApp extends AbstractRifidiApp {
 					Iterator iterator = rawIoTEvent.getExtraInformation().keySet().iterator();
 					while(iterator.hasNext()) {
 						String eventName = iterator.next().toString(); 
-						//System.out.println( "[IoT Event] " + eventName + " = " + rawIoTEvent.getExtraInformation().get(eventName));
+						System.out.println( "[IoT Event] " + eventName + " = " + rawIoTEvent.getExtraInformation().get(eventName));
 						
 						ECReportMemberField ecrepfield = new ECReportMemberField();
 						ecrepfield.setFieldspec(field.getFieldSpec());
@@ -193,7 +191,10 @@ public class TemperatureApp extends AbstractRifidiApp {
 						try {
 							ReportAnswer answer = new ReportAnswer();
 							answer.reports = reports;
+							StringWriter sw = new StringWriter();
 							marsh.marshal(objectFactoryALE.createECReports(reports), out);
+							marsh.marshal(objectFactoryALE.createECReports(reports), sw);
+							System.out.println(sw.toString());
 						} catch (JAXBException e) {
 							logger.info("Problem serializing to xml: "+e);
 						}
@@ -220,14 +221,13 @@ public class TemperatureApp extends AbstractRifidiApp {
 		addStatement("insert into sensedTemperatureWindow select * " +
 				"from IoTSensedEvent where sensingDevice='Alien_1'");	
 		addStatement("insert into sensedTemperatureWindow select * " +
-		"from IoTSensedEvent where sensingDevice='Obix_1'");	
+		"from IoTSensedEvent where sensingDevice='Snail_1'");	
 		
-		//register the listener for interesting readers
-		Iterator it=readerList.iterator(); 		
+		readerList.iterator(); 		
 		//while(it.hasNext()) {
 			//addStatement("select * from sensedTemperatureWindow where readerID = '"+ (String)it.next() + "'",sensedTemperatureEventListner);
 			addStatement("select * from sensedTemperatureWindow where sensingDevice='Alien_1'", sensedTemperatureEventListner);			
-			addStatement("select * from sensedTemperatureWindow where sensingDevice='OBIX_1'", sensedTemperatureEventListner);
+			addStatement("select * from sensedTemperatureWindow where sensingDevice='Snail_1'", sensedTemperatureEventListner);
 		//}
 	}
 
@@ -262,10 +262,8 @@ public class TemperatureApp extends AbstractRifidiApp {
 		readerList.add(getProperty("prof_room_1332", null));
 		readerList.add(getProperty("server_room_1333", null));
 		
-		// the upper and lower bound of sensed temperature events
-		// if a sensed temperatuere is not within the range, this event is reported to the application
-		this.indoorLowerBoundTemp = Float.parseFloat(getProperty("preferredLowerBoundTemp", null));
-		this.indoorUpperBoundTemp = Float.parseFloat(getProperty("preferredUpperBoundTemp", null));
+		Float.parseFloat(getProperty("preferredLowerBoundTemp", null));
+		Float.parseFloat(getProperty("preferredUpperBoundTemp", null));
 	}
 
 }

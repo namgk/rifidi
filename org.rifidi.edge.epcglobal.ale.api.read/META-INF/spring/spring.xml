@@ -15,18 +15,9 @@
 			<value>2</value>
 		</property>
 	</bean>
-	<osgi:reference id="sensorManagementBinding"
-		interface="org.rifidi.edge.core.sensors.management.SensorManagementService" />
-	<osgi:reference id="esperManagerService"
-		interface="org.rifidi.edge.core.services.esper.EsperManagementService" />
 
-	<bean id="aleReadAPIService"
-		class="org.rifidi.edge.epcglobal.ale.api.read.ws.ALEServicePortTypeImpl">
-		<property name="ecspecManagerService" ref="ecspecManager" />
-		<property name="sensorManagementBinding" ref="sensorManagementBinding" />
-		<property name="reportFactory" ref="reportFactory" />
-	</bean>
-
+	<bean id="reportFactory"
+		class="org.rifidi.edge.epcglobal.aleread.service.RifidiReportFactoryimpl" />
 	<bean id="ReadWebServiceDeployer" class="org.rifidi.edge.core.utilities.JaxWsServiceExporter"
 		init-method="start" destroy-method="stop">
 		<property name="port" value="${org.rifidi.edge.ale.port}" />
@@ -35,11 +26,22 @@
 		<property name="service" ref="aleReadAPIService" />
 	</bean>
 
+	<bean id="aleReadAPIService"
+		class="org.rifidi.edge.epcglobal.ale.api.read.ws.ALEServicePortTypeImpl">
+		<property name="ecspecManagerService" ref="ecspecManager" />
+<!-- 		<property name="sensorManagementBinding" ref="sensorManagementBinding" /> -->
+		<property name="reportFactory" ref="reportFactory" />
+	</bean>
+
+
 	<bean id="ecspecManager"
 		class="org.rifidi.edge.epcglobal.aleread.service.ECSPECManagerServiceImpl">
 		<property name="esperManagement" ref="esperManagerService"></property>
 	</bean>
+	
+	<osgi:service ref="ecspecManager" interface="org.rifidi.edge.epcglobal.aleread.service.ECSPECManagerService"/>
 
-	<bean id="reportFactory"
-		class="org.rifidi.edge.epcglobal.aleread.service.RifidiReportFactoryimpl" />
+	<osgi:reference id="esperManagerService"
+		interface="org.rifidi.edge.core.services.esper.EsperManagementService" />
+
 </beans>
