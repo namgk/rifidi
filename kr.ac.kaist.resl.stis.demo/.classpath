@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/tdt-0.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/epcis-commons-0.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/epcis-queryclient-0.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/axis.jar"/>
+	<classpathentry kind="lib" path="lib/commons-discovery-0.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-api-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-common-schemas-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-common-utilities-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-rt-bindings-soap-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-rt-bindings-xml-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-rt-core-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-rt-databinding-jaxb-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-rt-frontend-jaxws-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-rt-frontend-simple-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-rt-transports-http-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-rt-ws-addr-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/cxf-tools-common-2.2.9.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/icu4j_3.4.4.jar"/>
+	<classpathentry kind="lib" path="lib/iri.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.12.jar"/>
+	<classpathentry kind="lib" path="lib/orphanNodesAlg.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.5.8.jar"/>
+	<classpathentry kind="lib" path="lib/wsdl4j-1.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/XmlSchema-1.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/californium-0.13.1-SNAPSHOT.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

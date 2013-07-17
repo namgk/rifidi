@@ -19,11 +19,6 @@ public class WsnRifidiApplication extends AbstractRifidiApp {
 		// TODO Auto-generated constructor stub
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.rifidi.edge.core.app.api.AbstractRifidiApp#_start()
-	 */
 	@Override
 	protected void _start() {
 		super._start();
@@ -34,24 +29,12 @@ public class WsnRifidiApplication extends AbstractRifidiApp {
 		addStatement("select * from sensedTemperatureWindow where sensingDevice='Obix_1'", ol);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.rifidi.edge.core.app.api.AbstractRifidiApp#_stop()
-	 */
 	@Override
 	protected void _stop() {
 		super._stop();
-
 		// unsubscribe from rifidiservices here
-
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.rifidi.edge.core.app.api.AbstractRifidiApp#initialize()
-	 */
 	@Override
 	public void initialize() {
 		super.initialize();

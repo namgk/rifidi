@@ -1,6 +1,8 @@
 package org.rifidi.edge.readerplugin.obix;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Set;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -16,11 +18,16 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.rifidi.edge.api.SessionStatus;
 import org.rifidi.edge.core.sensors.base.AbstractSensor;
 import org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration;
 import org.rifidi.edge.core.sensors.sessions.AbstractSensorSession;
 import org.rifidi.edge.core.services.notification.NotifierService;
+
+import ch.ethz.inf.vs.californium.coap.GETRequest;
+import ch.ethz.inf.vs.californium.coap.Request;
+import ch.ethz.inf.vs.californium.coap.Response;
 
 /**
  * The session class for the Obix sensor.
@@ -30,8 +37,8 @@ import org.rifidi.edge.core.services.notification.NotifierService;
 public class ObixSensorSession extends AbstractSensorSession {
 
 	/** Logger for this class. */
-	private static final Log logger = LogFactory
-			.getLog(ObixSensorSession.class);
+	private static final Log logger =
+			LogFactory.getLog(ObixSensorSession.class);
 	/** Service used to send out notifications */
 	private volatile NotifierService notifierService;
 	/** The ID of the reader this session belongs to */
@@ -39,22 +46,12 @@ public class ObixSensorSession extends AbstractSensorSession {
 	private HttpClient httpclient = new DefaultHttpClient();
 	private String host;
 	private int port;
+	private int coapPort;
 	private Obj lobby;
+	private boolean http = false;
 
-	public String getHost() {
-		return host;
-	}
-
-	public int getPort() {
-		return port;
-	}
-
-	public Obj getLobby() {
-		return lobby;
-	}
-
-	public HttpClient getHttpclient() {
-		return httpclient;
+	public boolean isHttp() {
+		return http;
 	}
 
 	/**
@@ -62,18 +59,23 @@ public class ObixSensorSession extends AbstractSensorSession {
 	 * @param ID
 	 * @param commandConfigurations
 	 */
-	public ObixSensorSession(AbstractSensor<?> sensor, String id,
-			String host, int port, int notifyPort, int ioStreamPort,
+	public ObixSensorSession(AbstractSensor<?> sensor, String id, String host,
+			int port, int coapPort, int notifyPort, int ioStreamPort,
 			int reconnectionInterval, int maxConAttempts, String username,
-			String password, NotifierService notifierService, String obixReaderID,
-			Set<AbstractCommandConfiguration<?>> commands) {
+			String password, NotifierService notifierService,
+			String obixReaderID, Set<AbstractCommandConfiguration<?>> commands) {
 		super(sensor, id, commands);
 		this.port = port;
+		this.coapPort = coapPort;
 		this.host = host;
 		this.obixReaderID = obixReaderID;
 		this.notifierService = notifierService;
 		this.setStatus(SessionStatus.CLOSED);
-		at.ac.tuwien.auto.iotsys.gateway.obix.objects.ContractInit.init();
+		try {
+			at.ac.tuwien.auto.iotsys.gateway.obix.objects.ContractInit.init();
+			logger.info("---------------------------------- INITIATING OBIX CONTRACTS");
+		} catch (IllegalStateException e) {
+		}
 	}
 
 	/*
@@ -82,32 +84,72 @@ public class ObixSensorSession extends AbstractSensorSession {
 	 * @see org.rifidi.edge.core.sensors.SensorSession#_connect()
 	 */
 	@Override
-	protected synchronized void _connect() throws IOException {
+	protected synchronized void _connect() {
 		setStatus(SessionStatus.CONNECTING);
 
 		if (!processing.compareAndSet(false, true)) {
 			logger.warn("Executor was already active! ");
 		}
 		executor = new ScheduledThreadPoolExecutor(1);
-		String baseUrl = "http://" + getHost() + ":" + getPort();
-		HttpGet getReq = new HttpGet(baseUrl + "/obix");
 
-		HttpResponse response;
+		// / Checking http capability
 		try {
-			response = httpclient.execute(getReq);
-
-			String content = IOUtils
-					.toString(response.getEntity().getContent());
-			lobby = ObixDecoder.fromString(content);
-			System.out.println("done connect, lobby: \n" + content);
-			setStatus(SessionStatus.PROCESSING);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			disconnect();
-		} catch (IOException e) {
-			e.printStackTrace();
-			disconnect();
+			HttpResponse testHttp =
+					httpclient.execute(new HttpGet("http://" + getHost() + ":"
+							+ getPort()));
+			EntityUtils.consume(testHttp.getEntity());
+		} catch (ClientProtocolException e1) {
+			setHttp(false);
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			setHttp(false);
+			e1.printStackTrace();
 		}
+
+		if (isHttp()) {
+			String baseUrl = "http://" + getHost() + ":" + getPort();
+			HttpGet getReq = new HttpGet(baseUrl + "/obix");
+
+			HttpResponse response;
+			try {
+				response = httpclient.execute(getReq);// blocking
+
+				String content =
+						IOUtils.toString(response.getEntity().getContent());
+				lobby = ObixDecoder.fromString(content);
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+				disconnect();
+			} catch (IOException e) {
+				e.printStackTrace();
+				disconnect();
+			}
+		} else {
+			final String baseUrl = "coap://" + getHost() + ":5683";
+
+			try {
+				Request getRequest = new GETRequest();
+				getRequest.setURI(new URI(baseUrl + "/obix"));
+				getRequest.enableResponseQueue(true);
+				getRequest.execute();
+
+				Response response = getRequest.receiveResponse();
+				lobby = ObixDecoder.fromString(response.getPayloadString());
+				
+			} catch (InterruptedException e) {
+				System.err.println("Failed to receive response: "
+						+ e.getMessage());
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		System.out.println("done connect, lobby: \n" + lobby.toString());
+		setStatus(SessionStatus.PROCESSING);
 	}
 
 	@Override
@@ -126,7 +168,7 @@ public class ObixSensorSession extends AbstractSensorSession {
 		// notify anyone who cares that session is now closed
 		setStatus(SessionStatus.CLOSED);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -143,7 +185,7 @@ public class ObixSensorSession extends AbstractSensorSession {
 			service.sessionStatusChanged(this.obixReaderID, this.getID(), status);
 		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -160,7 +202,7 @@ public class ObixSensorSession extends AbstractSensorSession {
 			service.jobDeleted(this.obixReaderID, this.getID(), id);
 		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -175,8 +217,7 @@ public class ObixSensorSession extends AbstractSensorSession {
 		try {
 			NotifierService service = notifierService;
 			if (service != null) {
-				service.jobSubmitted(this.obixReaderID, this.getID(), retVal,
-						commandID, (interval > 0));
+				service.jobSubmitted(this.obixReaderID, this.getID(), retVal, commandID, (interval > 0));
 			}
 		} catch (Exception e) {
 			// make sure the notification doesn't cause this method to exit
@@ -185,5 +226,31 @@ public class ObixSensorSession extends AbstractSensorSession {
 		}
 		return retVal;
 	}
+
+	public void setHttp(boolean http) {
+		this.http = http;
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public int getPort() {
+		return port;
+	}
+	
+	public int getCoAPPort() {
+		return coapPort;
+	}
+
+	public Obj getLobby() {
+		return lobby;
+	}
+
+	public HttpClient getHttpclient() {
+		return httpclient;
+	}
+
+	
 
 }

@@ -3,17 +3,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="libs/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="libs/nagasena.jar"/>
-	<classpathentry kind="lib" path="libs/iotsys-encoding-json-0.1.jar"/>
-	<classpathentry kind="lib" path="libs/javacsv-2.0.jar"/>
-	<classpathentry kind="lib" path="libs/commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="libs/commons-io-2.0.1.jar"/>
-	<classpathentry kind="lib" path="libs/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="libs/httpclient-4.1.3.jar"/>
-	<classpathentry kind="lib" path="libs/httpclient-cache-4.1.3.jar"/>
-	<classpathentry kind="lib" path="libs/httpcore-4.1.4.jar"/>
-	<classpathentry kind="lib" path="libs/httpmime-4.1.3.jar"/>
-	<classpathentry kind="lib" path="libs/iotsys-obix-0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

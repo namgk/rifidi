@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Coap08
+Bundle-SymbolicName: coap08
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: ch.ethz.inf.vs.californium.coap,
+ ch.ethz.inf.vs.californium.coap.registries,
+ ch.ethz.inf.vs.californium.endpoint,
+ ch.ethz.inf.vs.californium.endpoint.resources,
+ ch.ethz.inf.vs.californium.layers,
+ ch.ethz.inf.vs.californium.util

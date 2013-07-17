@@ -51,6 +51,9 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	/** Port to connect to. */
 	private volatile Integer port = Integer
 			.parseInt(ObixReaderDefaultValues.PORT);
+	/** Port to connect to. */
+	private volatile Integer coapPort = Integer
+			.parseInt(ObixReaderDefaultValues.COAP_PORT);
 	/** Username for the telnet interface. */
 	private volatile String username = ObixReaderDefaultValues.USERNAME;
 	/** Password for the telnet interface. */
@@ -109,7 +112,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 		if (!destroyed.get() && session.get() == null) {
 			Integer sessionID = this.sessionID.incrementAndGet();
 			if (session.compareAndSet(null, new ObixSensorSession(this,
-					Integer.toString(sessionID), ipAddress, port, notifyPort,
+					Integer.toString(sessionID), ipAddress, port, coapPort, notifyPort,
 					ioStreamPort, (int) (long) reconnectionInterval,
 					maxNumConnectionAttempts, username, password,
 					notifierService, this.getID(), commands))) {
@@ -136,7 +139,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 		if (!destroyed.get() && session.get() == null) {
 			Integer sessionID = this.sessionID.incrementAndGet();
 			if (session.compareAndSet(null, new ObixSensorSession(this,
-					Integer.toString(sessionID), ipAddress, port, notifyPort,
+					Integer.toString(sessionID), ipAddress, port, coapPort, notifyPort,
 					ioStreamPort, (int) (long) reconnectionInterval,
 					maxNumConnectionAttempts, username, password,
 					notifierService, this.getID(), commands))) {
@@ -260,6 +263,12 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	public Integer getPort() {
 		return port;
 	}
+	
+	@Property(displayName = "CoAP Port", description = "CoAP port of the" + " Reader", writable = true, type = PropertyType.PT_INTEGER, category = "conn"
+			+ "ection", orderValue = 1, defaultValue = ObixReaderDefaultValues.COAP_PORT, minValue = "0", maxValue = "65535")
+	public Integer getCoapPort() {
+		return coapPort;
+	}
 
 	/**
 	 * @param PORT
@@ -269,37 +278,41 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 		this.port = port;
 	}
 
-	/**
-	 * @return the serverSocketPort
-	 */
-	@Property(displayName = "Notify Port", category = "connection", defaultValue = "54321", description = "The port configured in the Obix's Notify Address", type = PropertyType.PT_INTEGER, writable = true, minValue = "0", maxValue = "65535", orderValue = 1.5f)
-	public Integer getNotifyPort() {
-		return notifyPort;
+	public void setCoapPort(Integer coapPort) {
+		this.coapPort = coapPort;
 	}
-
-	/**
-	 * @param ioStreamPort
-	 *            the serverSocketPort to set
-	 */
-	public void setIOStreamPort(Integer ioStreamPort) {
-		this.ioStreamPort = ioStreamPort;
-	}
-
-	/**
-	 * @return the serverSocketPort
-	 */
-	@Property(displayName = "IO Stream Port", category = "connection", defaultValue = "54322", description = "The port configured in the Obix's IO Stream Address", type = PropertyType.PT_INTEGER, writable = true, minValue = "0", maxValue = "65535", orderValue = 1.75f)
-	public Integer getIOStreamPort() {
-		return ioStreamPort;
-	}
-
-	/**
-	 * @param notifyPort
-	 *            the serverSocketPort to set
-	 */
-	public void setNotifyPort(Integer notifyPort) {
-		this.notifyPort = notifyPort;
-	}
+	
+//	/**
+//	 * @return the serverSocketPort
+//	 */
+//	@Property(displayName = "Notify Port", category = "connection", defaultValue = "54321", description = "The port configured in the Obix's Notify Address", type = PropertyType.PT_INTEGER, writable = true, minValue = "0", maxValue = "65535", orderValue = 1.5f)
+//	public Integer getNotifyPort() {
+//		return notifyPort;
+//	}
+//
+//	/**
+//	 * @param ioStreamPort
+//	 *            the serverSocketPort to set
+//	 */
+//	public void setIOStreamPort(Integer ioStreamPort) {
+//		this.ioStreamPort = ioStreamPort;
+//	}
+//
+//	/**
+//	 * @return the serverSocketPort
+//	 */
+//	@Property(displayName = "IO Stream Port", category = "connection", defaultValue = "54322", description = "The port configured in the Obix's IO Stream Address", type = PropertyType.PT_INTEGER, writable = true, minValue = "0", maxValue = "65535", orderValue = 1.75f)
+//	public Integer getIOStreamPort() {
+//		return ioStreamPort;
+//	}
+//
+//	/**
+//	 * @param notifyPort
+//	 *            the serverSocketPort to set
+//	 */
+//	public void setNotifyPort(Integer notifyPort) {
+//		this.notifyPort = notifyPort;
+//	}
 
 	/**
 	 * @return the USERNAME

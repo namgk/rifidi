@@ -203,7 +203,7 @@ public class ECSPECManagerServiceImpl implements ECSPECManagerService {
 	
 	public List<String> getSubscriptionsByLRName(String readerName) {
 		RifidiECSpec r = getRifidiECSpecByReader(readerName);
-		return r.getSubscriptions();
+		return (r != null) ? r.getSubscriptions() : null;
 	}
 
 	/*
