@@ -1,0 +1,23 @@
+[
+	{
+		"nodes":[
+			{
+				"val":37.645022,
+				"tag":"real",
+				"name":"lat"
+			},
+			{
+				"val":-77.575851,
+				"tag":"real",
+				"name":"long"
+			}
+			
+		],
+		"tag":"obj"
+	}
+	,
+	{
+		"val":23,
+		"tag":"int"
+	}
+]

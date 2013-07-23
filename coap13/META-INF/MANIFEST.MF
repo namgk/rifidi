@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Coap13
 Bundle-SymbolicName: coap13
-Bundle-Version: 1.0.0
+Bundle-Version: 13.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: ch.ethz.inf.vs.californium.coap,
  ch.ethz.inf.vs.californium.coap.registries,

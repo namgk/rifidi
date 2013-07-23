@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Coap12
 Bundle-SymbolicName: coap12
-Bundle-Version: 1.0.0
-Export-Package: ch.ethz.inf.vs.californium.coap,
- ch.ethz.inf.vs.californium.coap.registries,
+Bundle-Version: 12.0.0
+Export-Package: ch.ethz.inf.vs.californium.coap;version="12.0.0",
+ ch.ethz.inf.vs.californium.coap.registries;version="12.0.0",
  ch.ethz.inf.vs.californium.dtls,
- ch.ethz.inf.vs.californium.endpoint,
- ch.ethz.inf.vs.californium.endpoint.resources,
+ ch.ethz.inf.vs.californium.endpoint;version="12.0.0",
+ ch.ethz.inf.vs.californium.endpoint.resources;version="12.0.0",
  ch.ethz.inf.vs.californium.layers,
  ch.ethz.inf.vs.californium.util
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

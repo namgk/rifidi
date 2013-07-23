@@ -21,5 +21,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="coap08@default:default,commons@default:default,http@1:default,kr.ac.kaist.resl.wsn@default:default,obix@default:default,org.rifidi.edge.core.app.api@default:default,org.rifidi.edge.core.services@default:default,org.rifidi.edge.epcglobal.ale.api.read@default:default,org.rifidi.edge.readerplugin.llrp@default:default,org.rifidi.edge.readerplugin.obix@default:default"/>
+<stringAttribute key="workspace_bundles" value="coap08@default:default,commons@default:default,http@1:default,kr.ac.kaist.resl.edge.readerplugin.obix@default:default,kr.ac.kaist.resl.stis.listener@default:default,kr.ac.kaist.resl.wsn@default:default,obix@default:default,org.rifidi.edge.core.app.api@default:default,org.rifidi.edge.core.services@default:default,org.rifidi.edge.epcglobal.ale.api.read@default:default,org.rifidi.edge.readerplugin.llrp@default:default"/>
 </launchConfiguration>

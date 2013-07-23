@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Listener
+Bundle-SymbolicName: kr.ac.kaist.resl.stis.listener
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: org.osgi.framework;version="1.6.0"
+Require-Bundle: commons;bundle-version="1.0.0",
+ coap08;bundle-version="8.0.0"
+Export-Package: kr.ac.kaist.resl.stis.listener,
+ kr.ac.kaist.resl.stis.listener.coaplistener
+

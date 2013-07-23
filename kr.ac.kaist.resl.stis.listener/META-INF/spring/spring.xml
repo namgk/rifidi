@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/osgi 
+    http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+	<bean id="activator" class="kr.ac.kaist.resl.stis.listener.coaplistener.Activator" init-method="start" destroy-method="stop">
+		<property name="cs" ref="coapServer"/>
+	</bean>
+
+	<bean id="coapListener" class="kr.ac.kaist.resl.stis.listener.coaplistener.CoAPListenerImpl" />
+
+	<bean id="coapServer" class="kr.ac.kaist.resl.stis.listener.coaplistener.CoAPServer">
+		<property name="cls" ref="coapListener"/>
+	</bean>
+
+	<osgi:service ref="coapListener" interface="kr.ac.kaist.resl.stis.listener.coaplistener.CoAPListener"/>
+
+</beans>

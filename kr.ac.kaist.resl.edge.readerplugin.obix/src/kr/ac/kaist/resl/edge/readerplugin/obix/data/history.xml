@@ -1,0 +1,32 @@
+<obj is="obix:HistoryAppendIn">
+	<list name="data" of="obix:HistoryRecord">
+		<obj href="obix:HistoryRecord">
+			<abstime name="start" val="2005-03-16T13:00:00+04:00" tz="Asia/Dubai" />
+			<obj>
+				<real name="lat" val="37.645022" />
+				<real name="long" val="-77.575851" />
+			</obj>
+		</obj>
+	</list>
+</obj>
+<obj is="obix:HistoryAppendIn">
+	<list name="data" of="obix:HistoryRecord">
+		<obj href="obix:HistoryRecord">
+			<abstime name="start" val="2005-03-16T13:00:00+04:00" tz="Asia/Dubai" />
+			<obj val="x" />
+		</obj>
+	</list>
+</obj>
+<obj is="obix:HistoryAppendIn">
+	<list name="data" of="obix:HistoryRecord">
+		<obj href="obix:HistoryRecord">
+			<abstime name="start" val="2005-03-16T13:00:00+04:00" tz="Asia/Dubai" />
+			<int val="23" />
+		</obj>
+	</list>
+</obj>
+<obj>
+	<real name="lat" val="37.645022" />
+	<real name="long" val="-77.575851" />
+</obj>
+<int val="23" />
