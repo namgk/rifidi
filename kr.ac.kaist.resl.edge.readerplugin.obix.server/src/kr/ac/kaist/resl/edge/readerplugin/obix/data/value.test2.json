@@ -1,14 +1,4 @@
 {
-	"nodes":[
-		{
-			"name":"lat",
-			"val":"2304",
-			"tag":"real"
-		},
-		{
-			"name":"long",
-			"val":"234",
-			"tag":"real"
-		}
-	],
-	"tag":"obj"
+		"val":88,
+		"tag":"int"
+	}

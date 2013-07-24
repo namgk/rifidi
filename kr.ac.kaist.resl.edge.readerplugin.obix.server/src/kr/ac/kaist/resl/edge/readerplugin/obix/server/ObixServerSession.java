@@ -111,8 +111,15 @@ public class ObixServerSession extends AbstractSensorSession {
 			System.out.println(locData);
 			try {
 				LocationValue l = gson.fromJson(locData, LocationValue.class);
-				if (l == null)
+				if ((l == null) 
+						|| (l.getNodes() == null) 
+						|| (l.getNodes().get(0).getVal() == null) 
+						|| (l.getNodes().get(1).getVal() == null)
+						|| (l.getNodes().get(0).getName() != "lat")
+						|| (l.getNodes().get(1).getName() != "long")
+						)
 					throw new JsonSyntaxException("");
+				
 				System.out.println(gson.toJson(l));
 				System.out.println("******************** LAT " + l.getNodes().get(0).getVal());
 				System.out.println("******************** LONG " + l.getNodes().get(1).getVal());
@@ -163,10 +170,12 @@ public class ObixServerSession extends AbstractSensorSession {
 
 			String senseData = r.getPayloadString();
 			System.out.println(senseData);
+			
 			try {
 				PrimitiveValue d = gson.fromJson(senseData, PrimitiveValue.class);
-				if (d == null)
+				if ((d == null) || (d.getVal() == null))
 					throw new JsonSyntaxException("");
+				
 				System.out.println(gson.toJson(d));
 				System.out.println("******************** VAL " + d.getVal());
 
