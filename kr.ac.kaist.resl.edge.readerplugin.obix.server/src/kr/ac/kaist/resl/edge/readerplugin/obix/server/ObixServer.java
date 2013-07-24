@@ -72,7 +72,18 @@ public class ObixServer extends AbstractSensor<ObixServerSession> {
 	@Override
 	public String createSensorSession(SessionDTO sessionDTO)
 			throws CannotCreateSessionException {
-		return null;
+		logger.info("create Obix Session with sessio DTO");
+		if (!destroyed.get() && session.get() == null) {
+			Integer sessionID = this.sessionID.incrementAndGet();
+			if (session.compareAndSet(null, new ObixServerSession(this,
+					Integer.toString(sessionID), null, notifierService, this.getID(), cls))) {
+				// TODO: remove this once we get AspectJ in here!
+				notifierService.addSessionEvent(this.getID(),
+						Integer.toString(sessionID));
+				return sessionID.toString();
+			}
+		}
+		throw new CannotCreateSessionException();
 	}
 
 	@Override
