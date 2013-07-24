@@ -115,8 +115,8 @@ public class ObixServerSession extends AbstractSensorSession {
 						|| (l.getNodes() == null) 
 						|| (l.getNodes().get(0).getVal() == null) 
 						|| (l.getNodes().get(1).getVal() == null)
-						|| (l.getNodes().get(0).getName() != "lat")
-						|| (l.getNodes().get(1).getName() != "long")
+						|| (!l.getNodes().get(0).getName().equals("lat"))
+						|| (!l.getNodes().get(1).getName().equals("long"))
 						)
 					throw new JsonSyntaxException("");
 				
