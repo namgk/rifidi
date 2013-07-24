@@ -9,5 +9,6 @@ import kr.ac.kaist.resl.stis.listener.STISHandler;
 public interface CoAPListener {
 
 	public void registerHandler(Object resourceId, STISHandler handler);
-	public STISHandler findHandler(Object resourceId);
+	public void deregisterHandler(Object resourceId);
+	public STISHandler findHandler(Object resourcePath);
 }

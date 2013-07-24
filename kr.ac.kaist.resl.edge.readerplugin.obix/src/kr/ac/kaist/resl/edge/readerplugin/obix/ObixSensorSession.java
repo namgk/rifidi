@@ -7,14 +7,9 @@ import java.util.Set;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import kr.ac.kaist.resl.edge.readerplugin.obix.commands.ObixCommand_Update;
-import kr.ac.kaist.resl.edge.readerplugin.obix.data.LocationValue;
-import kr.ac.kaist.resl.stis.listener.STISHandler;
-import kr.ac.kaist.resl.stis.listener.coaplistener.CoAPListener;
 import obix.Obj;
 import obix.io.ObixDecoder;
 
-import org.apache.commons.codec.DecoderException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,15 +24,12 @@ import org.rifidi.edge.core.sensors.base.AbstractSensor;
 import org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration;
 import org.rifidi.edge.core.sensors.sessions.AbstractSensorSession;
 import org.rifidi.edge.core.services.notification.NotifierService;
-import org.rifidi.edge.core.services.notification.data.IoTSensedEvent;
 
 import ch.ethz.inf.vs.californium.coap.GETRequest;
 import ch.ethz.inf.vs.californium.coap.Request;
 import ch.ethz.inf.vs.californium.coap.Response;
-import ch.ethz.inf.vs.californium.coap.registries.CodeRegistry;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 
 /**
  * The session class for the Obix sensor.
@@ -58,8 +50,6 @@ public class ObixSensorSession extends AbstractSensorSession {
 	private int coapPort;
 	private Obj lobby;
 	private boolean http = false;
-	Gson gson = new Gson();
-	private CoAPListener cls;
 
 	public boolean isHttp() {
 		return http;
@@ -72,7 +62,7 @@ public class ObixSensorSession extends AbstractSensorSession {
 	 */
 	public ObixSensorSession(AbstractSensor<?> sensor, String id, String host, int port,
 			int coapPort, int notifyPort, int ioStreamPort, int reconnectionInterval,
-			int maxConAttempts, String username, String password, CoAPListener cls,
+			int maxConAttempts, String username, String password, 
 			NotifierService notifierService, String obixReaderID,
 			Set<AbstractCommandConfiguration<?>> commands) {
 		super(sensor, id, commands);
@@ -81,7 +71,6 @@ public class ObixSensorSession extends AbstractSensorSession {
 		this.host = host;
 		this.obixReaderID = obixReaderID;
 		this.notifierService = notifierService;
-		this.cls = cls;
 		this.setStatus(SessionStatus.CLOSED);
 		try {
 			at.ac.tuwien.auto.iotsys.gateway.obix.objects.ContractInit.init();
@@ -127,13 +116,13 @@ public class ObixSensorSession extends AbstractSensorSession {
 			e1.printStackTrace();
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
+		} catch (NullPointerException e){
+			System.out.println("Cannot connect!");
+			disconnect();
 		}
 
 		System.out.println("done connect, lobby: \n" + lobby.toString());
 		setStatus(SessionStatus.PROCESSING);
-		
-		cls.registerHandler("epc_location", new ObixCoAPLocationHandler());
-		cls.registerHandler("epc_data", new ObixCoAPDataHandler());
 	}
 
 	public String getResourceByHttp(String resource) throws ClientProtocolException,
@@ -158,7 +147,7 @@ public class ObixSensorSession extends AbstractSensorSession {
 		getRequest.enableResponseQueue(true);
 		getRequest.execute();
 
-		Response response = getRequest.receiveResponse();
+		Response response = getRequest.receiveResponse();//udp blocking
 
 		return response.getPayloadString();
 	}
@@ -180,13 +169,6 @@ public class ObixSensorSession extends AbstractSensorSession {
 		setStatus(SessionStatus.CLOSED);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.rifidi.edge.core.readers.impl.AbstractReaderSession#setStatus(org
-	 * .rifidi.edge.core.api.SessionStatus)
-	 */
 	@Override
 	protected synchronized void setStatus(SessionStatus status) {
 		super.setStatus(status);
@@ -197,13 +179,6 @@ public class ObixSensorSession extends AbstractSensorSession {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.rifidi.edge.core.readers.impl.AbstractReaderSession#killComand(java
-	 * .lang.Integer)
-	 */
 	@Override
 	public void killComand(Integer id) {
 		super.killComand(id);
@@ -214,13 +189,6 @@ public class ObixSensorSession extends AbstractSensorSession {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.rifidi.edge.core.sensors.base.AbstractSensorSession#submit(java.lang
-	 * .String, long, java.util.concurrent.TimeUnit)
-	 */
 	@Override
 	public Integer submit(String commandID, long interval, TimeUnit unit) {
 		Integer retVal = super.submit(commandID, interval, unit);
@@ -236,87 +204,6 @@ public class ObixSensorSession extends AbstractSensorSession {
 			logger.error(e);
 		}
 		return retVal;
-	}
-
-	private class ObixCoAPLocationHandler implements STISHandler {
-
-		@Override
-		public void execute(Object request) {
-			Request r = (Request) request;
-
-			String resourcePath = r.getUriPath();
-			// resolve between coap 8 and 12
-			if (!resourcePath.startsWith("/"))
-				resourcePath = "/" + resourcePath;
-			System.out.println("Coap serving " + resourcePath + " for " + r.getPeerAddress().getAddress());
-			String[] urlElements = resourcePath.split("/");
-			for (String s : urlElements) {
-				System.out.println(s);
-			}
-
-
-			System.out.println("******************** " + urlElements.length);
-
-			String epc = urlElements[1];
-			System.out.println("******************** " + epc);
-
-			String locData = r.getPayloadString();
-			System.out.println(locData);
-			try {
-				LocationValue l = gson.fromJson(locData, LocationValue.class);
-				if (l == null)
-					throw new JsonSyntaxException("");
-				System.out.println(gson.toJson(l));
-				System.out.println("******************** LAT " + l.getNodes().get(0).getVal());
-				System.out.println("******************** LONG " + l.getNodes().get(1).getVal());
-
-				IoTSensedEvent tagInfo =
-						new IoTSensedEvent(null, getSensor().getID(), 0, System.currentTimeMillis());
-				tagInfo.setTag(STISUtils.getTag(new String(epc)));
-				tagInfo.addExtraInformation("location.lat", l.getNodes().get(0).getVal());
-				tagInfo.addExtraInformation("location.long", l.getNodes().get(1).getVal());
-				
-				ObixCommand_Update ocu = new ObixCommand_Update("obixUpdate");
-				ocu.setTagInfo(tagInfo);
-				submit(ocu);
-				
-				getSensor().sendEvent(tagInfo);
-				r.respond(CodeRegistry.RESP_CONTENT, gson.toJson(l));
-			} catch (DecoderException e) {
-				r.respond(CodeRegistry.RESP_CONTENT, "{\"error\":\"Bad EPC\"}");
-			} catch (JsonSyntaxException j) {
-				r.respond(CodeRegistry.RESP_CONTENT, "{\"error\":\"Bad JSON Syntax\"}");
-			}
-		}
-
-	}
-
-	private class ObixCoAPDataHandler implements STISHandler {
-
-		@Override
-		public void execute(Object request) {
-			Request r = (Request) request;
-			IoTSensedEvent tagInfo =
-					new IoTSensedEvent(null, getSensor().getID(), 0, System.currentTimeMillis());
-
-			String epc = r.getLocationPath().split("/")[1];
-			System.out.println("******************** " + epc);
-
-			String sensorId = r.getLocationPath().split("/")[2];
-			System.out.println("******************** " + sensorId);
-
-			String sensorValue = r.getPayloadString();
-			try {
-				tagInfo.setTag(STISUtils.getTag(new String(epc)));
-			} catch (DecoderException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			tagInfo.addExtraInformation(sensorId, sensorValue);
-
-			getSensor().sendEvent(tagInfo);
-		}
 	}
 
 	public void setHttp(boolean http) {

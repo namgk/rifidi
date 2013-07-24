@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/osgi 
+    http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+	<!-- Create Reader Configuration Factory -->
+	<bean id="ObixServerFactory" class="kr.ac.kaist.resl.edge.readerplugin.obix.server.ObixServerFactory">
+		<property name="cls" ref="coapListener"/>
+		<property name="context" ref="bundleContext" />
+		<property name="notifierService" ref="JMSNotifierService" />
+	</bean>
+
+	<!-- Put reader factory service in OSGi registry -->
+	<osgi:service id="ObixServerFactoryService"
+		ref="ObixServerFactory">
+		<osgi:interfaces>
+			<value>org.rifidi.edge.core.configuration.ServiceFactory</value>
+			<value>org.rifidi.edge.core.sensors.base.AbstractSensorFactory</value>
+		</osgi:interfaces>
+	</osgi:service>
+
+	<osgi:reference id="coapListener" interface="kr.ac.kaist.resl.stis.listener.coaplistener.CoAPListener"/>
+
+	<osgi:reference id="JMSNotifierService"
+		interface="org.rifidi.edge.core.services.notification.NotifierService" />
+
+</beans>

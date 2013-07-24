@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Obix
-Bundle-SymbolicName: kr.ac.kaist.resl.edge.readerplugin.obix
-Bundle-Version: 1.0.0
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Name: Server
+Bundle-SymbolicName: kr.ac.kaist.resl.edge.readerplugin.obix.server
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: .
 Require-Bundle: org.rifidi.edge.core;bundle-version="5.4.0",
  org.rifidi.edge.core.services;bundle-version="1.4.0",
@@ -13,6 +13,7 @@ Require-Bundle: org.rifidi.edge.core;bundle-version="5.4.0",
  http;bundle-version="1.0.0",
  commons;bundle-version="1.0.0",
  obix;bundle-version="1.0.0",
+ kr.ac.kaist.resl.stis.listener;bundle-version="1.0.0",
  coap08;bundle-version="8.0.0"
 Import-Package: com.espertech.esper.client,
  gnu.io;version="2.1.7",

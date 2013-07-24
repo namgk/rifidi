@@ -14,14 +14,11 @@ package kr.ac.kaist.resl.edge.readerplugin.obix;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.management.MBeanInfo;
-
-import kr.ac.kaist.resl.stis.listener.coaplistener.CoAPListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,37 +78,22 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	/** MBeanInfo for this class. */
 	public static final MBeanInfo mbeaninfo;
 	
-	private CoAPListener cls;
-	
 	static {
 		AnnotationMBeanInfoStrategy strategy = new AnnotationMBeanInfoStrategy();
 		mbeaninfo = strategy.getMBeanInfo(ObixSensor.class);
 	}
 
-	public ObixSensor(Set<AbstractCommandConfiguration<?>> commands, CoAPListener cls) {
+	public ObixSensor(Set<AbstractCommandConfiguration<?>> commands) {
 		super();
 		this.commands = commands;
-		this.cls = cls;
 		//new ConcurrentHashMap<String, String>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.rifidi.edge.core.sensors.base.AbstractSensor#applyPropertyChanges()
-	 */
 	@Override
 	public void applyPropertyChanges() {
 		// No properties.
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.rifidi.edge.core.sensors.base.AbstractSensor#createSensorSession()
-	 */
 	@Override
 	public String createSensorSession() throws CannotCreateSessionException {
 		logger.info("create Obix Session.");
@@ -120,7 +102,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 			if (session.compareAndSet(null, new ObixSensorSession(this,
 					Integer.toString(sessionID), ipAddress, port, coapPort, notifyPort,
 					ioStreamPort, (int) (long) reconnectionInterval,
-					maxNumConnectionAttempts, username, password, cls,
+					maxNumConnectionAttempts, username, password,
 					notifierService, this.getID(), commands))) {
 				// TODO: remove this once we get AspectJ in here!
 				notifierService.addSessionEvent(this.getID(),
@@ -131,13 +113,6 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 		throw new CannotCreateSessionException();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.rifidi.edge.core.sensors.base.AbstractSensor#createSensorSession(
-	 * org.rifidi.edge.api.rmi.dto.SessionDTO)
-	 */
 	@Override
 	public String createSensorSession(SessionDTO sessionDTO)
 			throws CannotCreateSessionException {
@@ -147,7 +122,7 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 			if (session.compareAndSet(null, new ObixSensorSession(this,
 					Integer.toString(sessionID), ipAddress, port, coapPort, notifyPort,
 					ioStreamPort, (int) (long) reconnectionInterval,
-					maxNumConnectionAttempts, username, password, cls,
+					maxNumConnectionAttempts, username, password,
 					notifierService, this.getID(), commands))) {
 				// TODO: remove this once we get AspectJ in here!
 				notifierService.addSessionEvent(this.getID(),
@@ -158,13 +133,6 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 		throw new CannotCreateSessionException();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.rifidi.edge.core.sensors.base.AbstractSensor#destroySensorSession
-	 * (java.lang.String)
-	 */
 	@Override
 	public void destroySensorSession(String id) {
 		ObixSensorSession obixSession = session.get();
@@ -182,11 +150,6 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.rifidi.edge.core.sensors.base.AbstractSensor#getSensorSessions()
-	 */
 	@Override
 	public Map<String, SensorSession> getSensorSessions() {
 		Map<String, SensorSession> ret = new HashMap<String, SensorSession>();
@@ -197,14 +160,6 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.rifidi.edge.core.sensors.base.AbstractSensor#unbindCommandConfiguration
-	 * (org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration,
-	 * java.util.Map)
-	 */
 	@Override
 	public void unbindCommandConfiguration(
 			AbstractCommandConfiguration<?> commandConfiguration,
@@ -227,11 +182,6 @@ public class ObixSensor extends AbstractSensor<ObixSensorSession> {
 	 * JMX PROPERTY GETTER/SETTERS
 	 */
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.rifidi.edge.core.sensors.base.AbstractSensor#getDisplayName()
-	 */
 	@Override
 	@Property(displayName = "Display Name", description = "Logical Name of Reader", writable = true, type = PropertyType.PT_STRING, category = "connection", defaultValue = "Obix", orderValue = 0)
 	public String getDisplayName() {

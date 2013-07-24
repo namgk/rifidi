@@ -15,8 +15,6 @@ import java.util.Map;
 
 import javax.management.MBeanInfo;
 
-import kr.ac.kaist.resl.stis.listener.coaplistener.CoAPListener;
-
 import org.rifidi.edge.core.exceptions.InvalidStateException;
 import org.rifidi.edge.core.sensors.base.AbstractSensorFactory;
 import org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration;
@@ -35,7 +33,6 @@ public class ObixSensorFactory extends AbstractSensorFactory<ObixSensor> {
 	private static final String description = "A obix Rifidi Adapter.  ";
 	/** The name of the reader that will be displayed */
 	private static final String displayname = "Obix";
-	private CoAPListener cls;
 
 	/** A JMS event notification sender */
 	private volatile NotifierService notifierService;
@@ -49,42 +46,22 @@ public class ObixSensorFactory extends AbstractSensorFactory<ObixSensor> {
 			Map<?, ?> properties) {
 	}
 
-	public CoAPListener getCls() {
-		return cls;
-	}
-	
-	public void setCls(CoAPListener cls) {
-		this.cls = cls;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.rifidi.edge.core.sensors.base.AbstractSensorFactory#getDescription()
-	 */
 	@Override
 	public String getDescription() {
 		return description;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.rifidi.edge.core.sensors.base.AbstractSensorFactory#getDisplayName()
-	 */
 	@Override
 	public String getDisplayName() {
 		return displayname;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.rifidi.edge.core.sensors.base.AbstractSensorFactory#unbindCommandConfiguration(org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration, java.util.Map)
-	 */
 	@Override
 	public void unbindCommandConfiguration(
 			AbstractCommandConfiguration<?> commandConfiguration,
 			Map<?, ?> properties) {
 	}
 
-	/* (non-Javadoc)
-	 * @see org.rifidi.edge.core.configuration.ServiceFactory#createInstance(java.lang.String)
-	 */
 	@Override
 	public void createInstance(String serviceID)
 			throws IllegalArgumentException, InvalidStateException {
@@ -94,7 +71,7 @@ public class ObixSensorFactory extends AbstractSensorFactory<ObixSensor> {
 		if (notifierService == null) {
 			throw new InvalidStateException("All services are not set");
 		}
-		ObixSensor instance = new ObixSensor(commands, cls);
+		ObixSensor instance = new ObixSensor(commands);
 		instance.setID(serviceID);
 		instance.setNotifiyService(notifierService);
 		instance.register(getContext(), FACTORY_ID);

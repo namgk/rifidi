@@ -36,9 +36,9 @@ import com.espertech.esper.client.EPStatement;
 import com.espertech.esper.client.EventBean;
 import com.espertech.esper.client.StatementAwareUpdateListener;
 
-public class ObixEventListener implements StatementAwareUpdateListener {
+public class ObixServerEventListener implements StatementAwareUpdateListener {
 
-	private static final Log logger = LogFactory.getLog(ObixEventListener.class);
+	private static final Log logger = LogFactory.getLog(ObixServerEventListener.class);
 	private static final ObjectFactory objectFactoryALE = new ObjectFactory();
 	private ECSPECManagerService ecspecMgmt;
 
@@ -50,7 +50,7 @@ public class ObixEventListener implements StatementAwareUpdateListener {
 	private JAXBContext cont;
 	private Marshaller marsh;
 
-	public ObixEventListener() {
+	public ObixServerEventListener() {
 		try {
 			cont = JAXBContext.newInstance(ReportAnswer.class, ECReports.class);
 			marsh = cont.createMarshaller();
@@ -63,7 +63,7 @@ public class ObixEventListener implements StatementAwareUpdateListener {
 	@Override
 	public void update(EventBean[] arg0, EventBean[] arg1, EPStatement arg2,
 			EPServiceProvider arg3) {
-		if ((arg0 == null) || (ecspecMgmt.getSubscriptionsByLRName("Obix_1") == null))
+		if ((arg0 == null) || (ecspecMgmt.getSubscriptionsByLRName("ObixServer_1") == null))
 			return;
 		IoTSensedEvent rawIoTEvent = (IoTSensedEvent) arg0[0].getUnderlying();
 		System.out.println("[STISApp: Listener] send all keys and values to STIS");
@@ -134,7 +134,7 @@ public class ObixEventListener implements StatementAwareUpdateListener {
 		report.getGroup().add(group);
 		reports.getReports().getReport().add(report);
 
-		for (String aSub : ecspecMgmt.getSubscriptionsByLRName("Obix_1")) {
+		for (String aSub : ecspecMgmt.getSubscriptionsByLRName("ObixServer_1")) {
 			String host = aSub.split(":")[0];
 			String port = aSub.split(":")[1];
 			System.out.println("Sending obix report to Cap App: " + host + ":" + port);

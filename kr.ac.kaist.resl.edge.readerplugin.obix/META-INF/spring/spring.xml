@@ -7,7 +7,6 @@
 
 	<!-- Create Reader Configuration Factory -->
 	<bean id="ObixSensorFactory" class="kr.ac.kaist.resl.edge.readerplugin.obix.ObixSensorFactory">
-		<property name="cls" ref="coapListener"/>
 		<property name="context" ref="bundleContext" />
 		<property name="notifierService" ref="JMSNotifierService" />
 		<property name="commandConfigurations" ref="obixCommands" />
@@ -42,8 +41,6 @@
 			<value>org.rifidi.edge.core.configuration.impl.AbstractCommandConfigurationFactory</value>
 		</osgi:interfaces>
 	</osgi:service>
-
-	<osgi:reference id="coapListener" interface="kr.ac.kaist.resl.stis.listener.coaplistener.CoAPListener"/>
 
 	<osgi:reference id="JMSNotifierService"
 		interface="org.rifidi.edge.core.services.notification.NotifierService" />

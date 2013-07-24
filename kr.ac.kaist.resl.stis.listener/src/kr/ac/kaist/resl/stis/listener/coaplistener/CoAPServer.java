@@ -28,16 +28,18 @@ public class CoAPServer extends ServerEndpoint {
 	@Override
 	public void execute(Request request) {
 		String resourcePath = request.getUriPath();
-		System.out.println("Coap serving " + resourcePath + " for " + request.getPeerAddress().getAddress());
-		if (resourcePath.contains("location")) {
-			STISHandler sh = cls.findHandler("epc_location");
-			if (sh != null)
-				sh.execute(request);
-			else
-				request.respond(CodeRegistry.RESP_NOT_FOUND);
-		} else {
-			request.respond(CodeRegistry.RESP_UNAUTHORIZED);
-		}
+		
+		if (!resourcePath.startsWith("/"))
+			resourcePath = "/" + resourcePath;
+		
+		System.out.println("Coap server serving " + resourcePath + " for " + request.getPeerAddress().getAddress());
+		
+		STISHandler sh = cls.findHandler(resourcePath);
+		if (sh != null)
+			sh.execute(request);
+		else
+			request.respond(CodeRegistry.RESP_NOT_FOUND);
+				
 		request.sendResponse();
 	}
 

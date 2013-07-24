@@ -1,4 +1,4 @@
-package kr.ac.kaist.resl.edge.readerplugin.obix.commands;
+package kr.ac.kaist.resl.edge.readerplugin.obix.server.command;
 
 import java.util.concurrent.TimeoutException;
 
@@ -9,23 +9,20 @@ import org.rifidi.edge.core.services.notification.data.IoTSensedEvent;
 
 /**
  * @author Nam Giang - zang at kaist dot ac dot kr
- *
+ * 
  */
-public class ObixCommand_Update extends TimeoutCommand {
+public class ObixServerCmd_Update extends TimeoutCommand {
 
-	private static final Log logger = LogFactory.getLog(ObixCommand_Update.class);
-	IoTSensedEvent tagInfo;
-	
-	public void setTagInfo(IoTSensedEvent tagInfo) {
-		this.tagInfo = tagInfo;
-	}
-
-	/**
-	 * @param commandID
-	 */
-	public ObixCommand_Update(String commandID) {
+	public ObixServerCmd_Update(String commandID) {
 		super(commandID);
 		logger.info("Construct Obix Update Command");
+	}
+
+	private static final Log logger = LogFactory.getLog(ObixServerCmd_Update.class);
+	IoTSensedEvent tagInfo;
+
+	public void setTagInfo(IoTSensedEvent tagInfo) {
+		this.tagInfo = tagInfo;
 	}
 
 	@Override
@@ -33,6 +30,5 @@ public class ObixCommand_Update extends TimeoutCommand {
 		logger.info("run Obix Update Command");
 		sensorSession.getSensor().sendEvent(tagInfo);
 	}
-	
 
 }
