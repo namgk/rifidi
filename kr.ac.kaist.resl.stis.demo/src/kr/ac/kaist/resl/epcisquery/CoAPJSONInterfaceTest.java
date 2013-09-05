@@ -11,11 +11,7 @@ package kr.ac.kaist.resl.epcisquery;
  * 
  */
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -25,20 +21,9 @@ import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.epcglobalinc.tdt.LevelTypeList;
-import org.fosstrak.epcis.model.ArrayOfString;
-import org.fosstrak.epcis.model.Poll;
-import org.fosstrak.epcis.model.QueryParam;
-import org.fosstrak.epcis.model.QueryParams;
 import org.fosstrak.tdt.TDTEngine;
-
-import ch.ethz.inf.vs.californium.coap.GETRequest;
-import ch.ethz.inf.vs.californium.coap.Request;
-import ch.ethz.inf.vs.californium.coap.Response;
 
 public class CoAPJSONInterfaceTest {
 

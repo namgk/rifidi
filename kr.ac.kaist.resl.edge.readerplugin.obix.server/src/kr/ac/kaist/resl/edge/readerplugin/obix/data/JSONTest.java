@@ -17,16 +17,16 @@ public class JSONTest {
 	}
 
 	public static void main(String[] args) {
-		LocationValue l = new LocationValue("2304", "234");
+		AcelValue l = new AcelValue("2304", "234", "55");
 		Gson gson = new Gson();
 		System.out.println(gson.toJson(l));
 
-		InputStream i = JSONTest.class.getResourceAsStream("value.test2.json");
+		InputStream i = JSONTest.class.getResourceAsStream("acel.json");
 		BufferedReader br = new BufferedReader(new InputStreamReader(i));
 		try {
-		LocationValue l2 = gson.fromJson(br, LocationValue.class);
-		System.out.println((l2 == null) ? "l2 null" : gson.toJson(l2));
-		} catch (JsonSyntaxException j){
+			AcelValue l2 = gson.fromJson(br, AcelValue.class);
+			System.out.println((l2 == null) ? "l2 null" : gson.toJson(l2));
+		} catch (JsonSyntaxException j) {
 			System.out.println("json syntax wrong");
 		}
 

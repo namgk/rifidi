@@ -43,33 +43,6 @@ public class CoAPServer extends ServerEndpoint {
 		request.sendResponse();
 	}
 
-	private class ObixCoAPLocationHandler implements STISHandler {
-
-		@Override
-		public void execute(Object request) {
-			Request r = (Request) request;
-
-			String resourcePath = r.getUriPath();
-			System.out.println("Coap serving " + resourcePath + " for " + r.getPeerAddress().getAddress());
-			String[] urlElements = resourcePath.split("/");
-			for (String s : urlElements) {
-				System.out.println(s);
-			}
-
-			System.out.println("******************** " + urlElements.length);
-
-			String epc = urlElements[1];
-			System.out.println("******************** " + epc);
-
-			String locData = r.getPayloadString();
-			System.out.println(locData);
-			r.respond(CodeRegistry.RESP_CONTENT, "{\"error\":\"Bad Data\"}");
-			r.sendResponse();
-
-		}
-
-	}
-
 	public CoAPListener getCls() {
 		return cls;
 	}

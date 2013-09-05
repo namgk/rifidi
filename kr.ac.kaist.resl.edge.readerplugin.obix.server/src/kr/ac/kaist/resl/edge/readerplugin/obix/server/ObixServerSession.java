@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import kr.ac.kaist.resl.edge.readerplugin.obix.data.AcelValue;
 import kr.ac.kaist.resl.edge.readerplugin.obix.data.LocationValue;
 import kr.ac.kaist.resl.edge.readerplugin.obix.data.PrimitiveValue;
 import kr.ac.kaist.resl.edge.readerplugin.obix.server.command.ObixServerCmd_Update;
@@ -57,9 +58,17 @@ public class ObixServerSession extends AbstractSensorSession {
 		executor = new ScheduledThreadPoolExecutor(1);
 
 		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/location/append$", new ObixCoAPLocationHandler());
-		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/sensor/append$", new ObixCoAPDataHandler());
+		
 		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/light/append$", new ObixCoAPDataHandler());
-		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/temp/append$", new ObixCoAPDataHandler());
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/pressure/append$", new ObixCoAPDataHandler());
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/proximity/append$", new ObixCoAPDataHandler());
+		
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/acelerometer/append$", new ObixCoAPAcelHandler());
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/gravity/append$", new ObixCoAPAcelHandler());
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/gyroscope/append$", new ObixCoAPAcelHandler());
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/linearacceleration/append$", new ObixCoAPAcelHandler());
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/magneticfield/append$", new ObixCoAPAcelHandler());
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/rotationvector/append$", new ObixCoAPAcelHandler());
 
 		setStatus(SessionStatus.PROCESSING);
 	}
@@ -77,13 +86,87 @@ public class ObixServerSession extends AbstractSensorSession {
 			executor.shutdownNow();
 			executor = null;
 		}
-		cls.deregisterHandler("^/[A-Fa-f0-9]{1,30}/location/append$");
-		cls.deregisterHandler("^/[A-Fa-f0-9]{1,30}/sensor/append$");
-		cls.deregisterHandler("^/[A-Fa-f0-9]{1,30}/light/append$");
-		cls.deregisterHandler("^/[A-Fa-f0-9]{1,30}/temp/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/location/append$");
+		
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/light/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/pressure/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/proximity/append$");
+		
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/acelerometer/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/gravity/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/gyroscope/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/linearacceleration/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/magneticfield/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/rotationvector/append$");
 		// notify anyone who cares that session is now closed
 		setStatus(SessionStatus.CLOSED);
 
+	}
+	
+	private class ObixCoAPAcelHandler implements STISHandler {
+
+		@Override
+		public void execute(Object request) {
+			Request r = (Request) request;
+
+			String resourcePath = r.getUriPath();
+			// resolve between coap 8 and 12
+			if (!resourcePath.startsWith("/"))
+				resourcePath = "/" + resourcePath;
+			System.out.println("Coap serving " + resourcePath + " for " + r.getPeerAddress().getAddress());
+			String[] urlElements = resourcePath.split("/");
+			for (String s : urlElements) {
+				System.out.println(s);
+			}
+
+			System.out.println("******************** " + urlElements.length);
+
+			String epc = urlElements[1];
+			System.out.println("******************** " + epc);
+
+			String sensorId = urlElements[2];
+			System.out.println("******************** " + sensorId);
+			
+			String acelData = r.getPayloadString();
+			System.out.println(acelData);
+			try {
+				AcelValue a = gson.fromJson(acelData, AcelValue.class);
+				if ((a == null) 
+						|| (a.getAxises() == null) 
+						|| (a.getAxises().get(0).getVal() == null) 
+						|| (a.getAxises().get(1).getVal() == null)
+						|| (a.getAxises().get(2).getVal() == null)
+						|| (!a.getAxises().get(0).getName().equals("x"))
+						|| (!a.getAxises().get(1).getName().equals("y"))
+						|| (!a.getAxises().get(2).getName().equals("z"))
+						)
+					throw new JsonSyntaxException("");
+				
+				System.out.println(gson.toJson(a));
+				System.out.println("******************** X " + a.getAxises().get(0).getVal());
+				System.out.println("******************** Y " + a.getAxises().get(1).getVal());
+				System.out.println("******************** Z " + a.getAxises().get(2).getVal());
+
+				IoTSensedEvent tagInfo =
+						new IoTSensedEvent(null, getSensor().getID(), 0, System.currentTimeMillis());
+				tagInfo.setTag(STISUtils.getTag(new String(epc)));
+				tagInfo.addExtraInformation(sensorId + ".x", a.getAxises().get(0).getVal());
+				tagInfo.addExtraInformation(sensorId + ".y", a.getAxises().get(1).getVal());
+				tagInfo.addExtraInformation(sensorId + ".z", a.getAxises().get(2).getVal());
+
+				ObixServerCmd_Update ocu = new ObixServerCmd_Update("obixUpdate");
+				ocu.setTagInfo(tagInfo);
+				submit(ocu);
+
+				getSensor().sendEvent(tagInfo);
+				r.respond(CodeRegistry.RESP_CONTENT, gson.toJson(a));
+			} catch (DecoderException e) {
+				r.respond(CodeRegistry.RESP_CONTENT, "{\"error\":\"Bad EPC\"}");
+			} catch (JsonSyntaxException j) {
+				r.respond(CodeRegistry.RESP_CONTENT, "{\"error\":\"Bad JSON Syntax\"}");
+			}			
+		}
+		
 	}
 
 	private class ObixCoAPLocationHandler implements STISHandler {
@@ -107,6 +190,9 @@ public class ObixServerSession extends AbstractSensorSession {
 			String epc = urlElements[1];
 			System.out.println("******************** " + epc);
 
+			String sensorId = urlElements[2];
+			System.out.println("******************** " + sensorId);
+			
 			String locData = r.getPayloadString();
 			System.out.println(locData);
 			try {
@@ -127,8 +213,8 @@ public class ObixServerSession extends AbstractSensorSession {
 				IoTSensedEvent tagInfo =
 						new IoTSensedEvent(null, getSensor().getID(), 0, System.currentTimeMillis());
 				tagInfo.setTag(STISUtils.getTag(new String(epc)));
-				tagInfo.addExtraInformation("location.lat", l.getNodes().get(0).getVal());
-				tagInfo.addExtraInformation("location.long", l.getNodes().get(1).getVal());
+				tagInfo.addExtraInformation(sensorId + ".lat", l.getNodes().get(0).getVal());
+				tagInfo.addExtraInformation(sensorId + ".long", l.getNodes().get(1).getVal());
 
 				ObixServerCmd_Update ocu = new ObixServerCmd_Update("obixUpdate");
 				ocu.setTagInfo(tagInfo);

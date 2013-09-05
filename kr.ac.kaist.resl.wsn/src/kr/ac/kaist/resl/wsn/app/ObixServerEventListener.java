@@ -17,6 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.epcglobalinc.tdt.LevelTypeList;
 import org.fosstrak.tdt.TDTEngine;
+import org.fosstrak.tdt.TDTException;
 import org.rifidi.edge.core.services.notification.data.IoTSensedEvent;
 import org.rifidi.edge.epcglobal.ale.api.read.EPC;
 import org.rifidi.edge.epcglobal.ale.api.read.data.ECReport;
@@ -106,6 +107,10 @@ public class ObixServerEventListener implements StatementAwareUpdateListener {
 			e.printStackTrace();
 			epc.setValue(rawIoTEvent.getTag().toString());
 		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			epc.setValue(rawIoTEvent.getTag().toString());
+		} catch (TDTException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			epc.setValue(rawIoTEvent.getTag().toString());

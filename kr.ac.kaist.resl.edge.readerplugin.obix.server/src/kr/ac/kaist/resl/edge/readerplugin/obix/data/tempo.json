@@ -1,0 +1,16 @@
+{
+  "acelerometeraxis":[{
+    "name":"x",
+    "val":"2304",
+    "tag":"real"
+  },{
+    "name":"y",
+    "val":"234",
+    "tag":"real"
+  },{
+    "name":"z",
+    "val":"55",
+    "tag":"real"
+  }],
+  "tag":"obj"
+}
