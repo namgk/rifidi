@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/osgi 
+    http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+
+	<!-- Create a new instance of the TemplateApp -->
+	<bean id="wsnRifidi" class="kr.ac.kaist.resl.wsn.app.WsnRifidiApplication">
+		<property name="ol" ref="obixListener" />
+		<property name="sn" ref="snailListener" />
+		<property name="osl" ref="obixServerListener" />
+	</bean>
+
+	<osgi:reference id="ecspecManagementService" interface="org.rifidi.edge.epcglobal.aleread.service.ECSPECManagerService" />
+	<bean id="obixListener" class="kr.ac.kaist.resl.wsn.app.ObixEventListener">
+		<property name="ecspecMgmt" ref="ecspecManagementService" />
+	</bean>
+	
+	<bean id="snailListener" class="kr.ac.kaist.resl.wsn.app.SnailEventListener">
+		<property name="ecspecMgmt" ref="ecspecManagementService" />
+	</bean>
+
+	<bean id="obixServerListener" class="kr.ac.kaist.resl.wsn.app.ObixServerEventListener">
+		<property name="ecspecMgmt" ref="ecspecManagementService" />
+	</bean>
+	<!-- Register the App in the OSGi service registry -->
+	<osgi:service ref="wsnRifidi" interface="org.rifidi.edge.core.app.api.RifidiApp" />
+
+
+</beans>

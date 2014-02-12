@@ -3,31 +3,6 @@
     <services>
         <attributes>
             <entry>
-                <key>TagType</key>
-                <value>2</value>
-            </entry>
-        </attributes>
-        <factoryID>Alien-Poll</factoryID>
-        <serviceID>Alien_Poll_1</serviceID>
-    </services>
-    <services>
-        <attributes/>
-        <factoryID>Obix-Poll</factoryID>
-        <serviceID>Obix_Poll_1</serviceID>
-    </services>
-    <services>
-        <attributes>
-            <entry>
-                <key>ROSpecID</key>
-                <value>1</value>
-            </entry>
-        </attributes>
-        <factoryID>LLRP-Poll</factoryID>
-        <serviceID>LLRP_Poll_2</serviceID>
-    </services>
-    <services>
-        <attributes>
-            <entry>
                 <key>AParameter</key>
                 <value>localhost</value>
             </entry>
@@ -36,12 +11,51 @@
         <serviceID>Obix_poll_5</serviceID>
     </services>
     <services>
-        <attributes/>
-        <factoryID>ObixServer</factoryID>
-        <serviceID>ObixServer_1</serviceID>
+        <attributes>
+            <entry>
+                <key>ReconnectionInterval</key>
+                <value>500</value>
+            </entry>
+            <entry>
+                <key>Port</key>
+                <value>8880</value>
+            </entry>
+            <entry>
+                <key>Username</key>
+                <value></value>
+            </entry>
+            <entry>
+                <key>Password</key>
+                <value></value>
+            </entry>
+            <entry>
+                <key>IpAddress</key>
+                <value>127.0.0.1</value>
+            </entry>
+            <entry>
+                <key>MaxNumConnectionAttempts</key>
+                <value>-1</value>
+            </entry>
+            <entry>
+                <key>DisplayName</key>
+                <value>Snail</value>
+            </entry>
+            <entry>
+                <key>CoapPort</key>
+                <value>5683</value>
+            </entry>
+        </attributes>
+        <factoryID>Snail</factoryID>
+        <serviceID>Snail_1</serviceID>
         <sessionDTOs>
+            <commands>
+                <commandID>Snail_poll_1</commandID>
+                <interval>2000</interval>
+                <processID>3</processID>
+                <timeUnit>MILLISECONDS</timeUnit>
+            </commands>
             <ID>1</ID>
-            <status>PROCESSING</status>
+            <status>CLOSED</status>
         </sessionDTOs>
     </services>
     <services>
@@ -51,8 +65,28 @@
                 <value>1</value>
             </entry>
         </attributes>
-        <factoryID>LLRP-Configure</factoryID>
-        <serviceID>LLRP_Configure_2</serviceID>
+        <factoryID>LLRP-Poll</factoryID>
+        <serviceID>LLRP_Poll_1</serviceID>
+    </services>
+    <services>
+        <attributes>
+            <entry>
+                <key>AParameter</key>
+                <value>localhost</value>
+            </entry>
+        </attributes>
+        <factoryID>Obix-poll</factoryID>
+        <serviceID>Obix_poll_3</serviceID>
+    </services>
+    <services>
+        <attributes/>
+        <factoryID>Obix-Poll</factoryID>
+        <serviceID>Obix_Poll_1</serviceID>
+    </services>
+    <services>
+        <attributes/>
+        <factoryID>ObixServer</factoryID>
+        <serviceID>ObixServer_1</serviceID>
     </services>
     <services>
         <attributes>
@@ -96,12 +130,12 @@
     <services>
         <attributes>
             <entry>
-                <key>AParameter</key>
-                <value>localhost</value>
+                <key>ROSpecID</key>
+                <value>1</value>
             </entry>
         </attributes>
-        <factoryID>Obix-poll</factoryID>
-        <serviceID>Obix_poll_1</serviceID>
+        <factoryID>LLRP-Configure</factoryID>
+        <serviceID>LLRP_Configure_2</serviceID>
     </services>
     <services>
         <attributes>
@@ -110,18 +144,56 @@
                 <value>1</value>
             </entry>
         </attributes>
-        <factoryID>LLRP-Configure</factoryID>
-        <serviceID>LLRP_Configure_1</serviceID>
+        <factoryID>LLRP-Poll</factoryID>
+        <serviceID>LLRP_Poll_2</serviceID>
     </services>
     <services>
         <attributes>
             <entry>
-                <key>AParameter</key>
-                <value>localhost</value>
+                <key>ReconnectionInterval</key>
+                <value>500</value>
+            </entry>
+            <entry>
+                <key>Port</key>
+                <value>8080</value>
+            </entry>
+            <entry>
+                <key>Username</key>
+                <value></value>
+            </entry>
+            <entry>
+                <key>Password</key>
+                <value></value>
+            </entry>
+            <entry>
+                <key>IpAddress</key>
+                <value>127.0.0.1</value>
+            </entry>
+            <entry>
+                <key>MaxNumConnectionAttempts</key>
+                <value>-1</value>
+            </entry>
+            <entry>
+                <key>DisplayName</key>
+                <value>Obix</value>
+            </entry>
+            <entry>
+                <key>CoapPort</key>
+                <value>5683</value>
             </entry>
         </attributes>
-        <factoryID>Obix-poll</factoryID>
-        <serviceID>Obix_poll_3</serviceID>
+        <factoryID>Obix</factoryID>
+        <serviceID>Obix_1</serviceID>
+        <sessionDTOs>
+            <commands>
+                <commandID>Obix_poll_1</commandID>
+                <interval>3000</interval>
+                <processID>0</processID>
+                <timeUnit>MILLISECONDS</timeUnit>
+            </commands>
+            <ID>1</ID>
+            <status>CLOSED</status>
+        </sessionDTOs>
     </services>
     <services>
         <attributes>
@@ -145,8 +217,18 @@
                 <value>localhost</value>
             </entry>
         </attributes>
+        <factoryID>Snail-poll</factoryID>
+        <serviceID>Snail_poll_1</serviceID>
+    </services>
+    <services>
+        <attributes>
+            <entry>
+                <key>AParameter</key>
+                <value>localhost</value>
+            </entry>
+        </attributes>
         <factoryID>Obix-poll</factoryID>
-        <serviceID>Obix_poll_2</serviceID>
+        <serviceID>Obix_poll_1</serviceID>
     </services>
     <services>
         <attributes>
@@ -155,7 +237,27 @@
                 <value>1</value>
             </entry>
         </attributes>
-        <factoryID>LLRP-Poll</factoryID>
-        <serviceID>LLRP_Poll_1</serviceID>
+        <factoryID>LLRP-Configure</factoryID>
+        <serviceID>LLRP_Configure_1</serviceID>
+    </services>
+    <services>
+        <attributes>
+            <entry>
+                <key>TagType</key>
+                <value>2</value>
+            </entry>
+        </attributes>
+        <factoryID>Alien-Poll</factoryID>
+        <serviceID>Alien_Poll_1</serviceID>
+    </services>
+    <services>
+        <attributes>
+            <entry>
+                <key>AParameter</key>
+                <value>localhost</value>
+            </entry>
+        </attributes>
+        <factoryID>Obix-poll</factoryID>
+        <serviceID>Obix_poll_2</serviceID>
     </services>
 </configurationStore>

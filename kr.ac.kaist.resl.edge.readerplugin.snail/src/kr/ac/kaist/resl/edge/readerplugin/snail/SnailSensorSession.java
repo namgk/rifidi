@@ -1,4 +1,4 @@
-package kr.ac.kaist.resl.edge.readerplugin.obix;
+package kr.ac.kaist.resl.edge.readerplugin.snail;
 
 import java.io.IOException;
 import java.net.URI;
@@ -6,9 +6,6 @@ import java.net.URISyntaxException;
 import java.util.Set;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import obix.Obj;
-import obix.io.ObixDecoder;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -30,23 +27,23 @@ import ch.ethz.inf.vs.californium.coap.Request;
 import ch.ethz.inf.vs.californium.coap.Response;
 
 /**
- * The session class for the Obix sensor.
+ * The session class for the Snail sensor.
  * 
  * @author Nam Giang - zang at kaist dot ac dot kr
  */
-public class ObixSensorSession extends AbstractSensorSession {
+public class SnailSensorSession extends AbstractSensorSession {
 
 	/** Logger for this class. */
-	private static final Log logger = LogFactory.getLog(ObixSensorSession.class);
+	private static final Log logger = LogFactory.getLog(SnailSensorSession.class);
 	/** Service used to send out notifications */
 	private volatile NotifierService notifierService;
 	/** The ID of the reader this session belongs to */
-	private final String obixReaderID;
+	private final String snailReaderID;
 	private HttpClient httpclient = new DefaultHttpClient();
 	private String host;
 	private int port;
 	private int coapPort;
-	private Obj lobby;
+	private SnailSensorResource resources;
 	private boolean http = false;
 
 	public boolean isHttp() {
@@ -58,23 +55,18 @@ public class ObixSensorSession extends AbstractSensorSession {
 	 * @param ID
 	 * @param commandConfigurations
 	 */
-	public ObixSensorSession(AbstractSensor<?> sensor, String id, String host, int port,
+	public SnailSensorSession(AbstractSensor<?> sensor, String id, String host, int port,
 			int coapPort, int notifyPort, int ioStreamPort, int reconnectionInterval,
 			int maxConAttempts, String username, String password, 
-			NotifierService notifierService, String obixReaderID,
+			NotifierService notifierService, String snailReaderID,
 			Set<AbstractCommandConfiguration<?>> commands) {
 		super(sensor, id, commands);
 		this.port = port;
 		this.coapPort = coapPort;
 		this.host = host;
-		this.obixReaderID = obixReaderID;
+		this.snailReaderID = snailReaderID;
 		this.notifierService = notifierService;
 		this.setStatus(SessionStatus.CLOSED);
-		try {
-			at.ac.tuwien.auto.iotsys.gateway.obix.objects.ContractInit.init();
-			logger.info("---------------------------------- INITIATING OBIX CONTRACTS");
-		} catch (IllegalStateException e) {
-		}
 	}
 
 	/*
@@ -97,29 +89,24 @@ public class ObixSensorSession extends AbstractSensorSession {
 			EntityUtils.consume(testHttp.getEntity());
 		} catch (ClientProtocolException e1) {
 			setHttp(false);
-			e1.printStackTrace();
 		} catch (IOException e1) {
 			setHttp(false);
-			e1.printStackTrace();
 		}
 
 		try {
-			lobby =
-					ObixDecoder.fromString(isHttp() ? getResourceByHttp("obix") : getResourceByCoAP("obix"));
+			String epc = isHttp() ? getResourceByHttp("epc") : getResourceByCoAP("epc");
+			resources = new SnailSensorResource(epc);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (URISyntaxException e1) {
-			e1.printStackTrace();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
 		} catch (NullPointerException e){
 			System.out.println("Cannot connect!");
 			disconnect();
+			return;
 		}
 
-		System.out.println("done connect, lobby: \n" + lobby.toString());
+		System.out.println("done connect, lobby: \n" + resources.toString());
 		setStatus(SessionStatus.PROCESSING);
 	}
 
@@ -129,25 +116,32 @@ public class ObixSensorSession extends AbstractSensorSession {
 		String reqUrl = baseUrl + "/" + resource;
 
 		HttpResponse aResp = httpclient.execute(new HttpGet(reqUrl));
-		String aContent =
-				IOUtils.toString(aResp.getEntity().getContent()).replace("</obj>\n", "</obj>");
+		String aContent = IOUtils.toString(aResp.getEntity().getContent());
 
 		return aContent;
 	}
 
-	public String getResourceByCoAP(String resource) throws URISyntaxException,
-			IOException, InterruptedException {
+	public String getResourceByCoAP(String resource) {
 		String baseUrl = "coap://" + getHost() + ":" + getCoAPPort();
 		String reqUrl = baseUrl + "/" + resource;
 
 		Request getRequest = new GETRequest();
-		getRequest.setURI(new URI(reqUrl));
-		getRequest.enableResponseQueue(true);
-		getRequest.execute();
-
-		Response response = getRequest.receiveResponse();//udp blocking
-
-		return response.getPayloadString();
+		Response response = null;
+		try {
+			getRequest.setURI(new URI(reqUrl));
+			getRequest.enableResponseQueue(true);
+//			getRequest.setType(messageType.NON);
+			getRequest.execute();
+			response = getRequest.receiveResponse();//udp blocking
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		return ((response.getCode() == 69) || response == null) ? response.getPayloadString() : null;
 	}
 
 	@Override
@@ -170,31 +164,28 @@ public class ObixSensorSession extends AbstractSensorSession {
 	@Override
 	protected synchronized void setStatus(SessionStatus status) {
 		super.setStatus(status);
-		// TODO: Remove this once we have aspectJ
 		NotifierService service = notifierService;
 		if (service != null) {
-			service.sessionStatusChanged(this.obixReaderID, this.getID(), status);
+			service.sessionStatusChanged(this.snailReaderID, this.getID(), status);
 		}
 	}
 
 	@Override
 	public void killComand(Integer id) {
 		super.killComand(id);
-		// TODO: Remove this once we have aspectJ
 		NotifierService service = notifierService;
 		if (service != null) {
-			service.jobDeleted(this.obixReaderID, this.getID(), id);
+			service.jobDeleted(this.snailReaderID, this.getID(), id);
 		}
 	}
 
 	@Override
 	public Integer submit(String commandID, long interval, TimeUnit unit) {
 		Integer retVal = super.submit(commandID, interval, unit);
-		// TODO: Remove this once we have aspectJ
 		try {
 			NotifierService service = notifierService;
 			if (service != null) {
-				service.jobSubmitted(this.obixReaderID, this.getID(), retVal, commandID, (interval > 0));
+				service.jobSubmitted(this.snailReaderID, this.getID(), retVal, commandID, (interval > 0));
 			}
 		} catch (Exception e) {
 			// make sure the notification doesn't cause this method to exit
@@ -220,8 +211,8 @@ public class ObixSensorSession extends AbstractSensorSession {
 		return coapPort;
 	}
 
-	public Obj getLobby() {
-		return lobby;
+	public SnailSensorResource getResources() {
+		return resources;
 	}
 
 	public HttpClient getHttpclient() {

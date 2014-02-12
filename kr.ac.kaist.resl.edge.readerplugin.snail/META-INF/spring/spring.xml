@@ -1,0 +1,48 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/osgi 
+    http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+	<!-- Create Reader Configuration Factory -->
+	<bean id="SnailSensorFactory" class="kr.ac.kaist.resl.edge.readerplugin.snail.SnailSensorFactory">
+		<property name="context" ref="bundleContext" />
+		<property name="notifierService" ref="JMSNotifierService" />
+		<property name="commandConfigurations" ref="snailCommands" />
+	</bean>
+
+	<!-- Create Command Configuration Factory -->
+	<bean id="SnailCommandFactory"
+		class="kr.ac.kaist.resl.edge.readerplugin.snail.commands.SnailCommandFactory">
+		<property name="context" ref="bundleContext" />
+	</bean>
+
+	<osgi:set id="snailCommands"
+		interface="org.rifidi.edge.core.sensors.commands.AbstractCommandConfiguration"
+		cardinality="0..N" filter="(reader=Snail)">
+		<osgi:listener ref="SnailSensorFactory"
+			bind-method="bindCommandConfiguration" unbind-method="unbindCommandConfiguration" />
+	</osgi:set>
+
+	<!-- Put reader factory service in OSGi registry -->
+	<osgi:service id="SnailSensorFactoryService"
+		ref="SnailSensorFactory">
+		<osgi:interfaces>
+			<value>org.rifidi.edge.core.configuration.ServiceFactory</value>
+			<value>org.rifidi.edge.core.sensors.base.AbstractSensorFactory</value>
+		</osgi:interfaces>
+	</osgi:service>
+	
+	<!-- Put command configuration service in OSGi Registry -->
+	<osgi:service id="SnailCommandFactoryService" ref="SnailCommandFactory">
+		<osgi:interfaces>
+			<value>org.rifidi.edge.core.configuration.ServiceFactory</value>
+			<value>org.rifidi.edge.core.configuration.impl.AbstractCommandConfigurationFactory</value>
+		</osgi:interfaces>
+	</osgi:service>
+
+	<osgi:reference id="JMSNotifierService"
+		interface="org.rifidi.edge.core.services.notification.NotifierService" />
+
+</beans>
