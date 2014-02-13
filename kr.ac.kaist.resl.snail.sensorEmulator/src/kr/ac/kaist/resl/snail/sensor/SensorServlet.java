@@ -24,19 +24,23 @@ public class SensorServlet extends HttpServlet {
 				IOException {
 		String path = req.getRequestURI();
 		String payload = null;
+		String randomTemp = ((25 + Math.random() * ((27 - 25) + 1)) + "").substring(0,4);
+		String randomHumid = ((18 + Math.random() * ((20 - 18) + 1)) + "").substring(0,4);
+		String randomLight = ((8 + Math.random() * ((10 - 8) + 1)) + "").substring(0,4);
+
 		if (path.equals("/.well-known/core")) {
 			payload = "</sensors/temp>;ct=0;rt=\"C\";if=\"sensor\"," +
 					"</sensors/light>;ct=0;rt=\"Lux\";if=\"sensor\"," +
 					"</sensors/humid>;ct=0;rt=\"Percent\";if=\"sensor\"," +
 					"</id>;ct=0;rt=\"null\";if=\"device\"";
 		} else if (path.equals("/sensors/temp")) {
-			payload = "21.2";
+			payload = randomTemp;
 		} else if (path.equals("/sensors/light")) {
-			payload = "71.99";
+			payload = randomHumid;
 		} else if (path.equals("/sensors/humid")) {
-			payload = "50";
+			payload = randomLight;
 		} else if (path.equals("/sensors")) {
-			payload = "[21.2,50,71.99]";
+			payload = "[" + randomTemp + "," + randomHumid +"," + randomLight + "]";
 		} else if (path.equals("/id")) {
 			int a = (int)(Math.random() * 6);
 			//payload = "30744B5A1C0000100000000A";

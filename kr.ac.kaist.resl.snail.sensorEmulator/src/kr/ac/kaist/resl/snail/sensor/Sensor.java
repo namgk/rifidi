@@ -23,7 +23,7 @@ import org.eclipse.jetty.util.resource.Resource;
 public class Sensor {
 	public static void main(String... arg) throws Exception {
 		// Get the server port and create a server
-		int port = arg.length > 1 ? Integer.parseInt(arg[1]) : 5683;
+		int port = arg.length > 1 ? Integer.parseInt(arg[1]) : 8989;
 		Server server = new Server(port);
 		CoAPServer coapServer = new CoAPServer();
 

@@ -83,18 +83,18 @@ public class SnailSensorSession extends AbstractSensorSession {
 		}
 		executor = new ScheduledThreadPoolExecutor(1);
 
-		try {// / Checking http capability
-			HttpResponse testHttp =
-					httpclient.execute(new HttpGet("http://" + getHost() + ":" + getPort()));
-			EntityUtils.consume(testHttp.getEntity());
-		} catch (ClientProtocolException e1) {
-			setHttp(false);
-		} catch (IOException e1) {
-			setHttp(false);
-		}
+//		try {// / Checking http capability
+//			HttpResponse testHttp =
+//					httpclient.execute(new HttpGet("http://" + getHost() + ":" + getPort()));
+//			EntityUtils.consume(testHttp.getEntity());
+//		} catch (ClientProtocolException e1) {
+//			setHttp(false);
+//		} catch (IOException e1) {
+//			setHttp(false);
+//		}
 
 		try {
-			String epc = isHttp() ? getResourceByHttp("epc") : getResourceByCoAP("epc");
+			String epc = isHttp() ? getResourceByHttp("id") : getResourceByCoAP("id");
 			resources = new SnailSensorResource(epc);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();

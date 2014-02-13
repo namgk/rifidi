@@ -12,7 +12,7 @@ import ch.ethz.inf.vs.californium.endpoint.resources.LocalResource;
 public class IdResource extends LocalResource {
 
 	public IdResource() {
-		super("epc");
+		super("id");
 		// TODO Auto-generated constructor stub
 	}
 

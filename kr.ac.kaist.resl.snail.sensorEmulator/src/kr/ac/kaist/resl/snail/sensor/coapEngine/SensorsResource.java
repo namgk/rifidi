@@ -10,7 +10,7 @@ import ch.ethz.inf.vs.californium.coap.registries.CodeRegistry;
 import ch.ethz.inf.vs.californium.endpoint.resources.LocalResource;
 
 public class SensorsResource extends LocalResource {
-
+	
 	public SensorsResource() {
 		super("sensors");
 		// TODO Auto-generated constructor stub
@@ -18,6 +18,10 @@ public class SensorsResource extends LocalResource {
 
 	@Override
   public void performGET(GETRequest request) {
-		request.respond(CodeRegistry.RESP_CONTENT, "[25,42,444]");
+		String randomTemp = ((25 + Math.random() * ((27 - 25) + 1)) + "").substring(0,4);
+		String randomHumid = ((18 + Math.random() * ((20 - 18) + 1)) + "").substring(0,4);
+		String randomLight = ((8 + Math.random() * ((10 - 8) + 1)) + "").substring(0,4);
+
+		request.respond(CodeRegistry.RESP_CONTENT, "[" + randomTemp + "," + randomHumid +"," + randomLight + "]");
 	}
 }
