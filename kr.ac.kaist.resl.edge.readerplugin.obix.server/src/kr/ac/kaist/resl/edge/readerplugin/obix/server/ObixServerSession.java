@@ -62,6 +62,7 @@ public class ObixServerSession extends AbstractSensorSession {
 		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/light/append$", new ObixCoAPDataHandler());
 		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/pressure/append$", new ObixCoAPDataHandler());
 		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/proximity/append$", new ObixCoAPDataHandler());
+		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/temperature/append$", new ObixCoAPDataHandler());
 		
 		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/acelerometer/append$", new ObixCoAPAcelHandler());
 		cls.registerHandler("^/[A-Fa-f0-9]{1,30}/gravity/append$", new ObixCoAPAcelHandler());
@@ -91,6 +92,7 @@ public class ObixServerSession extends AbstractSensorSession {
 		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/light/append$");
 		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/pressure/append$");
 		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/proximity/append$");
+		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/temperature/append$");
 		
 		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/acelerometer/append$");
 		cls.deregisterHandler("^/[A-Fa-f0-9]{1,50}/gravity/append$");

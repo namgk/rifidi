@@ -8,14 +8,14 @@ import java.util.ArrayList;
  */
 public class AcelValue {
 
-	ArrayList<Axis> acelerometeraxis = new ArrayList<Axis>();
+	ArrayList<Axis> threeaxissensor = new ArrayList<Axis>();
 
 	String tag = "obj";
 	
 	public AcelValue(String x, String y, String z) {
-		this.acelerometeraxis.add(new Axis(x, "x"));
-		this.acelerometeraxis.add(new Axis(y, "y"));
-		this.acelerometeraxis.add(new Axis(z, "z"));
+		this.threeaxissensor.add(new Axis(x, "x"));
+		this.threeaxissensor.add(new Axis(y, "y"));
+		this.threeaxissensor.add(new Axis(z, "z"));
 	}
 
 	public class Axis extends PrimitiveValue {
@@ -31,7 +31,7 @@ public class AcelValue {
 	}
 
 	public ArrayList<Axis> getAxises() {
-		return acelerometeraxis;
+		return threeaxissensor;
 	}
 	
 	public String getTag() {
