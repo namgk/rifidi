@@ -32,8 +32,9 @@ public class CoAPJSONInterfaceTest {
 	public static void main(String[] args) {
 
 		// The EPC used in the query
-		String epc = "urn:epc:id:sgtin:0057000.123780.7788";//urn:epc:id:sgtin:369783.6810725.52500494167
-		
+		// 'urn:epc:id:sgtin:1496711.000000.68719476746'
+		String epc = "urn:epc:id:sgtin:1497031.000000.68719476746";// urn:epc:id:sgtin:369783.6810725.52500494167
+
 		// EPC parameters
 		Map<String, String> params;
 		params = new HashMap<String, String>();
@@ -51,18 +52,16 @@ public class CoAPJSONInterfaceTest {
 		}
 
 		// Phase 1: Convert EPC to ONS name representation
-		String hostName = engine.convert(epc, params,
-				LevelTypeList.ONS_HOSTNAME);
+		String hostName = engine.convert(epc, params, LevelTypeList.ONS_HOSTNAME);
 		System.out.println("ONS name of EPC : " + hostName);
 
 		// Phase 2 : Resolve ONS name to EPCIS interface
 		// We use JNDI for using DNS
 
-		String epcisQueryInterface = "";
+		String stisInterface = "";
 		try {
 			Hashtable<String, String> env = new Hashtable<String, String>();
-			env.put("java.naming.factory.initial",
-					"com.sun.jndi.dns.DnsContextFactory");
+			env.put("java.naming.factory.initial", "com.sun.jndi.dns.DnsContextFactory");
 			env.put("java.naming.provider.url", "dns://" + ONS_SERVER_IP);
 
 			Attributes returnAttributes = null;
@@ -70,29 +69,21 @@ public class CoAPJSONInterfaceTest {
 			ArrayList<String> results = new ArrayList<String>();
 
 			DirContext ictx = new InitialDirContext(env);
-			returnAttributes = ictx.getAttributes(hostName,
-					new String[] { "NAPTR" });
+			returnAttributes = ictx.getAttributes(hostName, new String[] { "NAPTR" });
 			if (returnAttributes.size() > 0) {
 				attributeEnum = returnAttributes.get("NAPTR").getAll();
 				while (attributeEnum.hasMore())
 					results.add((String) attributeEnum.next());
 			}
-			String result;
-			String[] subResults = null;
 
-			// Traverse over the returned NAPTR records from ONS
-			// TODO: should take into account the Pref of NAPTR record and loop over the result. 
-			// 		For now, just use any record possible
-			for (int i = 0; i < results.size(); i++) {
-				result = results.get(i);
-				subResults = result.split(" ");
-				if (result.contains("["))// get the ipv6 endpoint of epcis
-					break;
+			for (String r : results) {
+				if (r.contains("EPC+epcis"))
+					stisInterface =
+							r.split(" ")[4].substring(6, r.split(" ")[4].length() - 1);
 			}
 
-			epcisQueryInterface = subResults[4].substring(6,
-					subResults[4].length() - 1);
-			System.out.println("EPCIS query interface : " + epcisQueryInterface);
+			System.out.println("STIS interface : " + stisInterface);
+
 		} catch (NamingException ne) {
 			ne.printStackTrace();
 		}
@@ -103,7 +94,7 @@ public class CoAPJSONInterfaceTest {
 
 		// create the epc coap port
 		EpcisCoAPPort ecp = new EpcisCoAPPort();
-		String response = ecp.query(epcisQueryInterface, epc);
+		String response = ecp.query(stisInterface, epc);
 		System.out.println(response);
 	}
 }

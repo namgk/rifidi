@@ -1,34 +1,20 @@
 package kr.ac.kaist.resl.edge.readerplugin.obix.commands;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import kr.ac.kaist.resl.edge.readerplugin.obix.ObixSensorSession;
 import kr.ac.kaist.resl.edge.readerplugin.obix.STISUtils;
-
 import obix.Obj;
 import obix.contracts.Id;
 import obix.io.ObixDecoder;
 
 import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.rifidi.edge.core.sensors.commands.TimeoutCommand;
-import org.rifidi.edge.core.services.notification.data.DatacontainerEvent;
-import org.rifidi.edge.core.services.notification.data.EPCGeneration2Event;
 import org.rifidi.edge.core.services.notification.data.IoTSensedEvent;
-
-import ch.ethz.inf.vs.californium.coap.GETRequest;
-import ch.ethz.inf.vs.californium.coap.Request;
-import ch.ethz.inf.vs.californium.coap.Response;
 
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.actuators.FanSpeedActuator;
 import at.ac.tuwien.auto.iotsys.gateway.obix.objects.iot.sensors.IndoorBrightnessSensor;
@@ -115,7 +101,4 @@ public class ObixCommand_Poll extends TimeoutCommand {
 		
 		sensorSession.getSensor().sendEvent(tagInfo);
 	}
-	
-	
-
 }
